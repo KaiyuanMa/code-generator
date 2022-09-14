@@ -6,3 +6,5 @@ const reducer = (state = { user: {} }, action) => {
       return state;
   }
 };
+
+export default reducer;
