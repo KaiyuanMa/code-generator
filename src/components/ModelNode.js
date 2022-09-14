@@ -5,7 +5,7 @@ import ModelAttribute from "./ModelAttribute";
 const handleStyle = { left: 10 };
 
 function ModelNode(prop) {
-  const { entries } = useSelector((state) => state.entries);
+  // const { entries } = useSelector((state) => state.entries);
   const onChange = useCallback((evt) => {
     console.log(evt.target.value);
   }, []);
