@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
-function ModelAttribute() {
+function ModelAttribute(prop) {
+  const entry = prop.entry;
+  const [name, setName] = useState(entry.name);
   return (
     <div>
-      <input />
+      <input value={name} placeholder="name" />
     </div>
   );
 }
