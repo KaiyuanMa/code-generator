@@ -9,6 +9,7 @@ User.hasMany(DataSet);
 DataSet.hasMany(Model);
 Model.hasMany(Entry);
 Entry.hasMany(Validation);
+Model.hasMany(Model);
 
 module.exports = {
   conn,
