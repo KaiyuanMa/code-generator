@@ -9,7 +9,6 @@ User.hasMany(DataSet);
 DataSet.hasMany(Model);
 Model.hasMany(Entry);
 Entry.hasMany(Validation);
-Model.hasMany(Model);
 
 module.exports = {
   conn,
@@ -19,3 +18,6 @@ module.exports = {
   Validation,
   DataSet,
 };
+
+// DataSet: id, name, userId
+// Model: id, name, DataSetId
