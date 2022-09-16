@@ -35,9 +35,6 @@ const Entry = conn.define("entry", {
     type: Sequelize.BOOLEAN,
     allowNull: true,
   },
-  connectionType: {
-    type: Sequelize.STRING,
-  },
 });
 
 module.exports = Entry;

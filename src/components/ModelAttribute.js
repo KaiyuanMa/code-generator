@@ -6,6 +6,17 @@ function ModelAttribute(prop) {
   return (
     <div>
       <input value={name} placeholder="name" />
+      {name == "id" ? (
+        <div>
+          <button>autoIncrement</button>
+          <button>primaryKey</button>
+        </div>
+      ) : (
+        <div>
+          <button>unique</button>
+          <button>allowNull</button>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,16 @@
-const reducer = (state = { validations: [] }, action) => {
+const reducer = (
+  state = {
+    validations: [
+      {
+        id: 1,
+        name: "isEmail",
+        parameter: "true",
+        entryId: 3,
+      },
+    ],
+  },
+  action
+) => {
   switch (action.type) {
     case "SET_VALIDATIONS":
       return { ...state, validations: action.validations };
