@@ -1,4 +1,4 @@
-const reducer = (state = { models: [] }, action) => {
+const reducer = (state = { models: [{ id: 1, name: "user" }] }, action) => {
   switch (action.type) {
     case "SET_MODELS":
       return { ...state, models: action.models };
@@ -11,6 +11,14 @@ const reducer = (state = { models: [] }, action) => {
           action.modelId !== model.id;
         }),
       };
+    case "UPDATE_MODEL":
+      const dummy = state.models;
+      for (let model of dummy) {
+        if (model.id == action.modelId) {
+          model = action.model;
+        }
+      }
+      return { ...state, models: dummy };
     default:
       return state;
   }

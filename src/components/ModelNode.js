@@ -1,32 +1,26 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Handle, Position } from "react-flow-renderer";
 import { useSelector } from "react-redux";
 import ModelAttribute from "./ModelAttribute";
 
-const handleStyle = { left: 10 };
-
-function ModelNode(prop) {
+function ModelNode({ data }) {
   const { entries } = useSelector((state) => state.entries);
-  const modelId = prop.modelId;
+  const currModel = data.value;
 
   return (
     <div className="model-node">
       <Handle type="target" position={Position.Top} />
       <div>
-        <p>Model Name</p>
+        <p>{currModel.name}</p>
         {/* <button onClick={}>+</button> */}
         {entries
-          .filter((entry) => entry.modelId == modelId)
+          .filter((entry) => entry.modelId == currModel.id)
           .map((entry) => (
             <ModelAttribute entry={entry} />
           ))}
+        <button>+</button>
       </div>
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="a"
-        style={handleStyle}
-      />
+
       <Handle type="source" position={Position.Bottom} id="b" />
     </div>
   );

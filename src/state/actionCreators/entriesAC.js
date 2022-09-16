@@ -17,3 +17,15 @@ const deleteEntry = async (entryId) => {
     });
   };
 };
+
+const editEntry = async (entryId, entry) => {
+  return (dispatch) => {
+    dispatch({
+      type: "UPDATE_ENTRY",
+      entryId: entryId,
+      entry: entry,
+    });
+  };
+};
+
+export { setEntries, addEntry, deleteEntry, editEntry };
