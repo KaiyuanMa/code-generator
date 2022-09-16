@@ -1,4 +1,4 @@
-const { User } = require("../db");
+const { User, DataSet } = require("../db");
 
 const isLoggedIn = async (req, res, next) => {
   try {
@@ -9,6 +9,17 @@ const isLoggedIn = async (req, res, next) => {
   }
 };
 
+const haveAccess = async (req, res, next) => {
+  try {
+    const response = await DataSet.findByPk(req.params.dataSetId);
+    if (response.userId != req.user.id) throw "Wrong user";
+    next();
+  } catch (ex) {
+    next(ex);
+  }
+};
+
 module.exports = {
   isLoggedIn,
+  haveAccess,
 };
