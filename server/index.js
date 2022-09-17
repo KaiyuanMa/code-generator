@@ -8,6 +8,9 @@ app.use("/dist", express.static(path.join(__dirname, "../dist")));
 app.use("/public", express.static("public"));
 app.use("/api/session", require("./routes/session"));
 app.use("/api/dataSet", require("./routes/dataSet"));
+app.use("/api/model", require("./routes/model"));
+app.use("/api/entry", require("./routes/entry"));
+app.use("/api/validation", require("./routes/validation"));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));

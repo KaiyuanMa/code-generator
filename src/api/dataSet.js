@@ -1,43 +1,48 @@
 const axios = require("axios");
 
+const token = {
+  headers: {
+    authorization: window.localStorage.getItem("token"),
+  },
+};
+
+//GET
+
 const getDataSets = () => {
-  return axios.get("/api/dataSet", {
-    headers: {
-      authorization: window.localStorage.getItem("token"),
-    },
-  });
+  return axios.get("/api/dataSet", token);
 };
 
 const getDataSet = (dataSetId) => {
-  return axios.get(`/api/dataSet/${dataSetId}`, {
-    headers: {
-      authorization: window.localStorage.getItem("token"),
-    },
-  });
+  return axios.get(`/api/dataSet/${dataSetId}`, token);
 };
 
-const addDataSet = (dataSet) => {
-  return axios.post("/api/dataSet", dataSet, {
-    headers: {
-      authorization: window.localStorage.getItem("token"),
-    },
-  });
+const getDataSetModels = (dataSetId) => {
+  return axios.get(`/api/dataSet/${dataSetId}/model`, token);
 };
+
+//DELETE
 
 const deleteDataSet = (dataSetId) => {
-  return axios.post(`/api/dataSet/${dataSetId}`, {
-    headers: {
-      authorization: window.localStorage.getItem("token"),
-    },
-  });
+  return axios.post(`/api/dataSet/${dataSetId}`, token);
 };
 
-const updateDataSet = (dataSetId, dataSet) => {
-  return axios.put(`/api/dataSet/${dataSetId}`, dataSetId, {
-    headers: {
-      authorization: window.localStorage.getItem("token"),
-    },
-  });
+//POST
+
+const addDataSet = (dataSet) => {
+  return axios.post("/api/dataSet", dataSet, token);
 };
 
-export { getDataSets, getDataSet, addDataSet, deleteDataSet, updateDataSet };
+//PUT
+
+const updateDataSet = (dataSetId, params) => {
+  return axios.put(`/api/dataSet/${dataSetId}`, params, token);
+};
+
+export {
+  getDataSets,
+  getDataSetModels,
+  getDataSet,
+  addDataSet,
+  deleteDataSet,
+  updateDataSet,
+};
