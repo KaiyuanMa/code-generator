@@ -4,10 +4,12 @@ import ReactFlow, {
   applyEdgeChanges,
   applyNodeChanges,
   Background,
+  Controls,
+  MiniMap,
 } from "react-flow-renderer";
 import { useSelector } from "react-redux";
-
 import ModelNode from "./ModelNode";
+import { zipFiles } from "./zip";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
@@ -20,6 +22,16 @@ const initialNodes = [
     position: { x: 0, y: 0 },
     data: { value: 123 },
   },
+  {
+    id: "node-2",
+    type: "model",
+    position: { x: 250, y: 25 },
+    data: { value: 456 },
+  },
+];
+
+const initialEdges = [
+  { id: 'edge-1', source: 'node-1', target: 'node-2' },
 ];
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -28,20 +40,20 @@ const nodeTypes = { model: ModelNode };
 function Flow() {
   const { models } = useSelector((state) => state.models);
   const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState([]);
+  const [edges, setEdges] = useState(initialEdges);
   const defaultEdgeOptions = { animated: true };
 
   //only for testing
-  useEffect(() => {
-    setNodes([
-      {
-        id: "node-1",
-        type: "model",
-        position: { x: 0, y: 0 },
-        data: { value: models[0] },
-      },
-    ]);
-  }, []);
+  // useEffect(() => {
+  //   setNodes([
+  //     {
+  //       id: "node-1",
+  //       type: "model",
+  //       position: { x: 0, y: 0 },
+  //       data: { value: models[0] },
+  //     },
+  //   ]);
+  // }, []);
 
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -59,6 +71,7 @@ function Flow() {
   return (
     <div className="react-flow-wrapper">
       <button>+</button>
+      <button onClick={()=> zipFiles()}>DOWNLOAD ZIP</button>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -70,6 +83,8 @@ function Flow() {
         style={rfStyle}
         defaultEdgeOptions={defaultEdgeOptions}
       >
+        <MiniMap />
+        <Controls />
         <Background variant="dots" gap={20} />
       </ReactFlow>
     </div>
