@@ -10,6 +10,7 @@ export const zipFiles = () => {
     'Entry',
     'Validation',
     'DataSet',
+    'Model'
   ]
   
   const modelImports =  modelNames.map(modelName => {
@@ -35,12 +36,24 @@ export const zipFiles = () => {
     ');\n\n',
     'module.exports = conn;\n'
   ])
+
+  const modelsBlob = modelNames.map(modelName => {
+    return [modelName, new Blob([
+      'const conn = require("./conn");\n',
+      "const { Sequelize } = conn;\n\n",
+      `const ${modelName} = conn.define("${modelName.toLowerCase()}", {\n`,
+      '});\n'
+    ])]
+  })
   
   zip.file("index.js", indexBlob);
   
-  const img = zip.folder("db");
-  img.file("conn.js", connBlob, {base64: true});
-  
+  const db = zip.folder("db");
+  db.file("conn.js", connBlob, {base64: true});
+  modelsBlob.map(model => {
+    db.file(`${model[0]}.js`, model[1], {base64: true})
+  })
+
   zip.generateAsync({type:"blob"}).then(function(content) {
       // see FileSaver.js
       saveAs(content, "example.zip");
