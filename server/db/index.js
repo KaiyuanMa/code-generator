@@ -4,9 +4,15 @@ const Model = require("./Model");
 const Entry = require("./Entry");
 const Validation = require("./Validation");
 const DataSet = require("./DataSet");
+const Node = require("./Node");
+const Edge = require("./Edge");
 
 User.hasMany(DataSet);
 DataSet.hasMany(Model);
+DataSet.hasMany(Node);
+DataSet.hasMany(Edge);
+Model.hasMany(Edge);
+Model.hasOne(Node);
 Model.hasMany(Entry);
 Entry.hasMany(Validation);
 
@@ -17,6 +23,8 @@ module.exports = {
   Entry,
   Validation,
   DataSet,
+  Node,
+  Edge,
 };
 
 // DataSet: id, name, userId

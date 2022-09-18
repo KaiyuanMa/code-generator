@@ -47,7 +47,7 @@ router.post("/", isLoggedIn, haveAccess, async (req, res, next) => {
     const model = await Model.findByPk(req.body.modelId);
     const dataSet = await DataSet.findByPk(model.dataSetId);
     if (dataSet.userId != req.user.id) throw "Wrong User";
-    res.send(await Entry.create(req.body));
+    res.status(201).send(await Entry.create(req.body));
   } catch (ex) {
     next(ex);
   }

@@ -5,7 +5,10 @@ import ReactFlow, {
   applyNodeChanges,
   Background,
 } from "react-flow-renderer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataSetEdges } from "../api/edge";
+import { getDataSetNode } from "../api/node";
+import { setModelsAC } from "../state/actionCreators/modelsAC";
 
 import ModelNode from "./ModelNode";
 
@@ -13,34 +16,38 @@ const rfStyle = {
   backgroundColor: "#B8CEFF",
 };
 
-const initialNodes = [
-  {
-    id: "node-1",
-    type: "model",
-    position: { x: 0, y: 0 },
-    data: { value: 123 },
-  },
-];
-// we define the nodeTypes outside of the component to prevent re-renderings
-// you could also use useMemo inside the component
 const nodeTypes = { model: ModelNode };
 
 function Flow() {
+  const { dataSet } = useSelector((state) => state.dataSet);
   const { models } = useSelector((state) => state.models);
-  const [nodes, setNodes] = useState(initialNodes);
+  const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const defaultEdgeOptions = { animated: true };
+  const dispatch = useDispatch();
 
-  //only for testing
+  //put fooDataSetId in here, only for testing
+  const DataSetId = "3ca45fe5-2816-49f6-af5b-3204d098291f";
+
+  const fetchData = async () => {
+    let response = await getDataSetEdges(DataSetId);
+    setEdges(response.data);
+    response = await getDataSetNode(DataSetId);
+    const dummy = [];
+    for (let node of response.data) {
+      const curr = {};
+      curr.id = node.id;
+      curr.type = node.type;
+      curr.position = { x: node.positionX * 1, y: node.positionY * 1 };
+      curr.data = { modelId: node.modelId };
+      dummy.push(curr);
+    }
+    setNodes(dummy);
+  };
+
   useEffect(() => {
-    setNodes([
-      {
-        id: "node-1",
-        type: "model",
-        position: { x: 0, y: 0 },
-        data: { value: models[0] },
-      },
-    ]);
+    dispatch(setModelsAC(DataSetId));
+    fetchData();
   }, []);
 
   const onNodesChange = useCallback(
@@ -56,7 +63,7 @@ function Flow() {
     [setEdges]
   );
 
-  return (
+  return nodes.length > 1 ? (
     <div className="react-flow-wrapper">
       <button>+</button>
       <ReactFlow
@@ -73,7 +80,7 @@ function Flow() {
         <Background variant="dots" gap={20} />
       </ReactFlow>
     </div>
-  );
+  ) : null;
 }
 
 export default Flow;
