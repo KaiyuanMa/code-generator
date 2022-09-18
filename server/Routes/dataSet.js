@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { isLoggedIn, haveAccess } = require("./middleware");
-const { DataSet, Model } = require("../db");
+const { DataSet, Model, Entry, Validation } = require("../db");
 
 //GET
 
@@ -28,7 +28,15 @@ router.get(
   async (req, res, next) => {
     try {
       res.send(
-        await Model.findAll({ where: { dataSetId: req.params.dataSetId } })
+        await Model.findAll({
+          where: { dataSetId: req.params.dataSetId },
+          include: [
+            {
+              model: Entry,
+              include: Validation,
+            },
+          ],
+        })
       );
     } catch (ex) {
       next(ex);
@@ -53,7 +61,7 @@ router.delete("/:dataSetId", isLoggedIn, haveAccess, async (req, res, next) => {
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     if (req.body.userId != req.user.id) throw "Wrong User";
-    res.status(201).send(await DataSet.create(req.body));
+    res.send(await DataSet.create(req.body));
   } catch (ex) {
     next(ex);
   }
@@ -63,10 +71,11 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 
 router.put("/:dataSetId", isLoggedIn, haveAccess, async (req, res, next) => {
   try {
-    await DataSet.update(req.body, {
-      where: { id: req.params.dataSetId },
-    });
-    res.sendStatus(201);
+    res.send(
+      await DataSet.update(req.body, {
+        where: { id: req.params.dataSetId },
+      })
+    );
   } catch (ex) {
     next(ex);
   }

@@ -12,7 +12,7 @@ const getModel = (modelId) => {
   return axios.get(`/api/model/${modelId}`, token);
 };
 
-const getMOdelEntries = (modelId) => {
+const getModelEntries = (modelId) => {
   return axios.get(`/api/model/${modelId}/entry`, token);
 };
 
@@ -34,4 +34,4 @@ const updateModel = (modelId, params) => {
   return axios.put(`/api/model/${modelId}`, params, headers);
 };
 
-export { getModel, getMOdelEntries, deleteModel, addModel, updateModel };
+export { getModel, getModelEntries, deleteModel, addModel, updateModel };
