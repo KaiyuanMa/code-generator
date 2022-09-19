@@ -30,7 +30,7 @@ function Flow() {
   const dispatch = useDispatch();
 
   //put fooDataSetId in here, only for testing
-  const DataSetId = "3ca45fe5-2816-49f6-af5b-3204d098291f";
+  const DataSetId = "69d3e38a-54e8-4806-a826-beda56b428eb";
 
   const fetchData = async () => {
     let response = await getDataSetEdges(DataSetId);
