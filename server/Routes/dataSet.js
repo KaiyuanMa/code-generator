@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { isLoggedIn, haveAccess } = require("./middleware");
-const { DataSet, Model } = require("../db");
+const { DataSet, Model, Entry, Validation } = require("../db");
 
 //GET
 router.get("/", isLoggedIn, async (req, res, next) => {
@@ -27,7 +27,15 @@ router.get(
   async (req, res, next) => {
     try {
       res.send(
-        await Model.findAll({ where: { dataSetId: req.params.dataSetId } })
+        await Model.findAll({
+          where: { dataSetId: req.params.dataSetId },
+          include: [
+            {
+              model: Entry,
+              include: Validation,
+            },
+          ],
+        })
       );
     } catch (ex) {
       next(ex);
@@ -62,10 +70,11 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 
 router.put("/:dataSetId", isLoggedIn, haveAccess, async (req, res, next) => {
   try {
-    await DataSet.update(req.body, {
-      where: { id: req.params.dataSetId },
-    });
-    res.sendStatus(201);
+    res.send(
+      await DataSet.update(req.body, {
+        where: { id: req.params.dataSetId },
+      })
+    );
   } catch (ex) {
     next(ex);
   }

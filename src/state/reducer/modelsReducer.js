@@ -1,7 +1,15 @@
-const reducer = (state = { models: [{ id: 1, name: "user" }] }, action) => {
+const reducer = (state = { models: [] }, action) => {
   switch (action.type) {
     case "SET_MODELS":
       return { ...state, models: action.models };
+    case "SET_MODEL":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          model = action.model;
+          break;
+        }
+      }
+      return state;
     case "ADD_MODEL":
       return { ...state, models: [...state.models, action.model] };
     case "DEL_MODEL":
@@ -12,13 +20,41 @@ const reducer = (state = { models: [{ id: 1, name: "user" }] }, action) => {
         }),
       };
     case "UPDATE_MODEL":
-      const dummy = state.models;
-      for (let model of dummy) {
+      for (let model of state.models) {
         if (model.id == action.modelId) {
           model = action.model;
         }
       }
-      return { ...state, models: dummy };
+      return state;
+    //Entry
+    case "ADD_ENTRY":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          model.entries = [...model.entries, action.entry];
+          break;
+        }
+      }
+      return { ...state };
+    case "DELETE_ENTRY":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          model.entries = model.entries.filter(
+            (entry) => entry.id != action.entryId
+          );
+          break;
+        }
+      }
+      return { ...state };
+    case "UPDATE_ENTRY":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          for (let entry of model.entries) {
+            if (entry.id == action.entryId) {
+              entry = action.entry;
+            }
+          }
+        }
+      }
     default:
       return state;
   }

@@ -4,7 +4,15 @@ const createAndSeedModel = async (datasets) => {
   try {
     const _MODEL = [
       {
-        name: "user",
+        name: "parent",
+        dataSetId: datasets[0].id,
+      },
+      {
+        name: "childrenA",
+        dataSetId: datasets[0].id,
+      },
+      {
+        name: "childrenB",
         dataSetId: datasets[0].id,
       },
       {

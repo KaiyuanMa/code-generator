@@ -9,31 +9,24 @@ const Entry = conn.define("entry", {
   },
   name: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   autoIncrement: {
     type: Sequelize.BOOLEAN,
-    allowNull: true,
   },
   type: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   defaultValue: {
     type: Sequelize.STRING,
-    allowNull: true,
   },
   unique: {
     type: Sequelize.BOOLEAN,
-    allowNull: true,
   },
   allowNull: {
     type: Sequelize.BOOLEAN,
-    allowNull: true,
   },
   primaryKey: {
     type: Sequelize.BOOLEAN,
-    allowNull: true,
   },
 });
 

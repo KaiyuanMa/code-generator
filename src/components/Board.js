@@ -7,53 +7,51 @@ import ReactFlow, {
   Controls,
   MiniMap,
 } from "react-flow-renderer";
-import { useSelector } from "react-redux";
-import ModelNode from "./ModelNode";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataSetEdges } from "../api/edge";
+import { getDataSetNode } from "../api/node";
+import { setModelsAC } from "../state/actionCreators/modelsAC";
 import { zipFiles } from "./zip";
+
+import ModelNode from "./ModelNode";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
 };
 
-const initialNodes = [
-  {
-    id: "node-1",
-    type: "model",
-    position: { x: 0, y: 0 },
-    data: { value: 123 },
-  },
-  {
-    id: "node-2",
-    type: "model",
-    position: { x: 250, y: 25 },
-    data: { value: 456 },
-  },
-];
-
-const initialEdges = [
-  { id: 'edge-1', source: 'node-1', target: 'node-2' },
-];
-// we define the nodeTypes outside of the component to prevent re-renderings
-// you could also use useMemo inside the component
 const nodeTypes = { model: ModelNode };
 
 function Flow() {
+  const { dataSet } = useSelector((state) => state.dataSet);
   const { models } = useSelector((state) => state.models);
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
   const defaultEdgeOptions = { animated: true };
+  const dispatch = useDispatch();
 
-  //only for testing
-  // useEffect(() => {
-  //   setNodes([
-  //     {
-  //       id: "node-1",
-  //       type: "model",
-  //       position: { x: 0, y: 0 },
-  //       data: { value: models[0] },
-  //     },
-  //   ]);
-  // }, []);
+  //put fooDataSetId in here, only for testing
+  const DataSetId = "69d3e38a-54e8-4806-a826-beda56b428eb";
+
+  const fetchData = async () => {
+    let response = await getDataSetEdges(DataSetId);
+    setEdges(response.data);
+    response = await getDataSetNode(DataSetId);
+    const dummy = [];
+    for (let node of response.data) {
+      const curr = {};
+      curr.id = node.id;
+      curr.type = node.type;
+      curr.position = { x: node.positionX * 1, y: node.positionY * 1 };
+      curr.data = { modelId: node.modelId };
+      dummy.push(curr);
+    }
+    setNodes(dummy);
+  };
+
+  useEffect(() => {
+    dispatch(setModelsAC(DataSetId));
+    fetchData();
+  }, []);
 
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -68,10 +66,10 @@ function Flow() {
     [setEdges]
   );
 
-  return (
+  return nodes.length > 1 ? (
     <div className="react-flow-wrapper">
       <button>+</button>
-      <button onClick={()=> zipFiles()}>DOWNLOAD ZIP</button>
+      <button onClick={() => zipFiles()}>DOWNLOAD ZIP</button>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -88,7 +86,7 @@ function Flow() {
         <Background variant="dots" gap={20} />
       </ReactFlow>
     </div>
-  );
+  ) : null;
 }
 
 export default Flow;
