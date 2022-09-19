@@ -4,11 +4,14 @@ import ReactFlow, {
   applyEdgeChanges,
   applyNodeChanges,
   Background,
+  Controls,
+  MiniMap,
 } from "react-flow-renderer";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataSetEdges } from "../api/edge";
 import { getDataSetNode } from "../api/node";
 import { setModelsAC } from "../state/actionCreators/modelsAC";
+import { zipFiles } from "./zip";
 
 import ModelNode from "./ModelNode";
 
@@ -66,6 +69,7 @@ function Flow() {
   return nodes.length > 1 ? (
     <div className="react-flow-wrapper">
       <button>+</button>
+      <button onClick={() => zipFiles()}>DOWNLOAD ZIP</button>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -77,6 +81,8 @@ function Flow() {
         style={rfStyle}
         defaultEdgeOptions={defaultEdgeOptions}
       >
+        <MiniMap />
+        <Controls />
         <Background variant="dots" gap={20} />
       </ReactFlow>
     </div>
