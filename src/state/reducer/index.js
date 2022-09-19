@@ -1,18 +1,14 @@
 import { combineReducers } from "redux";
 import userReducer from "./userReducer";
-import entriesReducer from "./entriesReducer";
 import modelsReducer from "./modelsReducer";
-import validationsReducer from "./validationsReducer";
 import dataSetReducer from "./dataSetReducer";
-import authReducer from '../auth'
+import authReducer from '../auth';
 
 const reducers = combineReducers({
   user: userReducer,
+  dataSet: dataSetReducer,
   models: modelsReducer,
-  entries: entriesReducer,
-  validations: validationsReducer,
-  auth: authReducer,
-  dataSets: dataSetReducer
+  auth: authReducer
 });
 
 export default reducers;

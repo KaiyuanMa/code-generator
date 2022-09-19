@@ -5,7 +5,11 @@ function ModelAttribute(prop) {
   const [name, setName] = useState(entry.name);
   return (
     <div>
-      <input value={name} placeholder="name" />
+      <input
+        value={name}
+        placeholder="name"
+        onChange={(e) => setName(e.target.value)}
+      />
       {name == "id" ? (
         <div>
           <button>autoIncrement</button>
