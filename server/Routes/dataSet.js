@@ -4,7 +4,6 @@ const { isLoggedIn, haveAccess } = require("./middleware");
 const { DataSet, Model } = require("../db");
 
 //GET
-
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await DataSet.findAll({ where: { userId: req.user.id } }));
@@ -52,7 +51,7 @@ router.delete("/:dataSetId", isLoggedIn, haveAccess, async (req, res, next) => {
 
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
-    if (req.body.userId != req.user.id) throw "Wrong User";
+    if (req.body.userId !== req.user.id) throw "Wrong User";
     res.status(201).send(await DataSet.create(req.body));
   } catch (ex) {
     next(ex);
