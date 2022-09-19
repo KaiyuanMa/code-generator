@@ -12,6 +12,12 @@ function ModelNode({ data }) {
   if (models.length > 1) {
     model = models.find((model) => model.id == modelId);
   }
+  useEffect(() => {
+    if (models.length > 1) {
+      model = models.find((model) => model.id == modelId);
+    }
+    console.log(model);
+  }, [models]);
 
   const handelClick = () => {
     dispatch(addModelEntry(modelId));
