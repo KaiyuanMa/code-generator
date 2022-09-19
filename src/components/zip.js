@@ -16,7 +16,6 @@ export const zipFiles = () => {
   const modelImports =  modelNames.map(modelName => {
     return `const ${modelName} = require('${modelName}')\n`
   })
-
   const modelExports = modelNames.map(modelName => `  ${modelName},\n`)
 
   const indexBlob = new Blob([
@@ -55,7 +54,6 @@ export const zipFiles = () => {
   })
 
   zip.generateAsync({type:"blob"}).then(function(content) {
-      // see FileSaver.js
-      saveAs(content, "example.zip");
+    saveAs(content, "example.zip");
   });
 }
