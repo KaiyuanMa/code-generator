@@ -59,11 +59,13 @@ export function ZipButton () {
   const { models } = useSelector(state => state.models)
   const [popUp, setPopUp] = useState(false)
   const [dbName, setDbName] = useState('')
+  console.log(models)
 
   const closePopUp = () => setPopUp(false)
 
   const downloadZip = (ev) => {
     ev.preventDefault()
+    setDbName('')
     return zipFiles(models, dbName)
   }
 
