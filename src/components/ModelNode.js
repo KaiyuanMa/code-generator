@@ -5,6 +5,7 @@ import ModelAttribute from "./ModelAttribute";
 import { addModelEntry } from "../state/actionCreators/modelsAC";
 
 function ModelNode({ data }) {
+  const [editModelName, setEditModelName ] = useState(false)
   const dispatch = useDispatch();
   const { models } = useSelector((state) => state.models);
   let model = {};
@@ -18,16 +19,29 @@ function ModelNode({ data }) {
     }
     console.log(model);
   }, [models]);
-
+  
   const handelClick = () => {
     dispatch(addModelEntry(modelId));
   };
+  
+  const changeModelName = (ev) => {
+    ev.preventDefault()
+    setEditModelName(false)
+  }
+  
+  const [modelName, setModelName ] = useState(model.name)
 
   return models.length > 0 ? (
     <div className="model-node">
       <Handle type="target" position={Position.Top} />
       <div>
-        <p>{model.name}</p>
+        {
+          !editModelName
+          ? <p onClick={() => setEditModelName(prev => !prev)}>{modelName}</p>
+          : <form action="" onSubmit={changeModelName}>
+            <input type="text" placeholder={model.name} value={modelName} onChange={(ev)=>setModelName(ev.target.value)}/>
+          </form>
+        }
         {model.entries.map((entry) => (
           <ModelAttribute entry={entry} />
         ))}
