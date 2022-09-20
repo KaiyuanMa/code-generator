@@ -15,8 +15,8 @@ import { getDataSetEdges } from "../api/edge";
 import { getDataSetNode } from "../api/node";
 import { addModelAC, setModelsAC } from "../state/actionCreators/modelsAC";
 import { ZipButton } from "./zip";
-import { addModel } from "../api/model";
-import { apiAddNode } from "../api/node";
+import { apiAddModel, apiDeleteModel } from "../api/model";
+import { apiAddNode, apiDeleteNode } from "../api/node";
 
 import ModelNode from "./ModelNode";
 import ModelEdge from "./ModelEdge";
@@ -39,7 +39,13 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "6391f702-c4a0-4837-98e9-45cc37d3dbd4";
+  const DataSetId = "255213e3-66eb-4a14-9def-b716cd363c72";
+
+  const deleteNode = (nodeId) => {
+    setNodes((nds) => {
+      return nds.filter((node) => node.id != nodeId);
+    });
+  };
 
   const fetchData = async () => {
     let response = await getDataSetEdges(DataSetId);
@@ -52,7 +58,6 @@ function Flow() {
       curr.target = edge.target;
       curr.animated = edge.animated;
       curr.label = edge.label;
-      curr.data = { modelId: edge.label };
       curr.markerEnd = {
         type: MarkerType.ArrowClosed,
       };
@@ -65,9 +70,9 @@ function Flow() {
       const curr = {};
       curr.id = node.id;
       curr.type = node.type;
-      curr.dragHandle = ".model-node-drag";
+      curr.dragHandle = ".model-node-header";
       curr.position = { x: node.positionX, y: node.positionY };
-      curr.data = { modelId: node.modelId };
+      curr.data = { modelId: node.modelId, deleteNode };
       nodeDummy.push(curr);
     }
     setNodes(nodeDummy);
@@ -81,7 +86,7 @@ function Flow() {
   //TODO: useCallback ?, check documentation
   const handelClick = () => {
     const helper = async () => {
-      const { data } = await addModel({
+      const { data } = await apiAddModel({
         name: "test",
         dataSetId: DataSetId,
       });
@@ -118,6 +123,15 @@ function Flow() {
     },
     [setEdges]
   );
+  const onNodesDelete = (nodes) => {
+    const deleteNodeAndModel = async (node) => {
+      await apiDeleteNode(node.data.modelId);
+      await apiDeleteModel(node.data.modelId);
+    };
+    for (let node of nodes) {
+      deleteNodeAndModel(node);
+    }
+  };
 
   return nodes.length > 1 ? (
     <div className="react-flow-wrapper">
@@ -128,6 +142,7 @@ function Flow() {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        onNodesDelete={onNodesDelete}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
