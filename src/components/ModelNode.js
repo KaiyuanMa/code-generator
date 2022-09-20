@@ -82,7 +82,6 @@ function ModelNode({ data }) {
             disabled={true}
             onChange={(ev) => setModelName(ev.target.value)}
           />
-          <p>{modelName}</p>
         </form>
         {model.entries
           ? model.entries.map((entry) => <ModelAttribute entry={entry} />)
