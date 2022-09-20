@@ -13,7 +13,11 @@ router.get("/:modelId", isLoggedIn, haveAccess, async (req, res, next) => {
   }
 });
 
-router.get("/:modelId/entry", isLoggedIn,haveAccess, async (req, res, next) => {
+router.get(
+  "/:modelId/entry",
+  isLoggedIn,
+  haveAccess,
+  async (req, res, next) => {
     try {
       res.send(await Entry.findAll({ where: { modelId: req.params.modelId } }));
     } catch (ex) {
@@ -27,7 +31,7 @@ router.get("/:modelId/entry", isLoggedIn,haveAccess, async (req, res, next) => {
 router.delete("/:modelId", isLoggedIn, haveAccess, async (req, res, next) => {
   try {
     const model = await Model.findByPk(req.params.modelId);
-    model.destroy();
+    await model.destroy();
     res.sendStatus(202);
   } catch (ex) {
     next(ex);

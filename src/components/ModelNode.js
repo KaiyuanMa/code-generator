@@ -3,12 +3,13 @@ import { Handle, Position } from "react-flow-renderer";
 import { useDispatch, useSelector } from "react-redux";
 import ModelAttribute from "./ModelAttribute";
 import { addModelEntry, editModelAC } from "../state/actionCreators/modelsAC";
+import { apiDeleteModel } from "../api/model";
+import { apiDeleteNode } from "../api/node";
 
-function ModelNode({ data }) {
-  const [editModelName, setEditModelName] = useState(false);
+function ModelNode(props) {
   const dispatch = useDispatch();
   const { models } = useSelector((state) => state.models);
-
+  const data = props.data;
   let model = {};
   const modelId = data.modelId;
 
@@ -63,11 +64,22 @@ function ModelNode({ data }) {
     updateModelName();
   };
 
+  const handelDelete = () => {
+    data.deleteNode(props.id);
+    const deleteNodeAndModel = async (data) => {
+      await apiDeleteNode(data.modelId);
+      await apiDeleteModel(data.modelId);
+    };
+    deleteNodeAndModel(data);
+  };
+
   return models.length > 0 ? (
     <div className="model-node">
       <Handle type="target" position={Position.Top} />
       <div>
-        <div className="model-node-drag" />
+        <div className="model-node-header">
+          <button onClick={handelDelete}>x</button>
+        </div>
         <form
           className="model-name-form"
           id={`${modelId}-form`}
