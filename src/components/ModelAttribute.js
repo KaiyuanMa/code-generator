@@ -8,6 +8,7 @@ function ModelAttribute(prop) {
   const modelId = entry.modelId;
   const entryId = entry.id;
   const [name, setName] = useState(entry.name);
+  
   return (
     <div>
       <input
