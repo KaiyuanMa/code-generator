@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataSetEdges } from "../api/edge";
 import { getDataSetNode } from "../api/node";
 import { addModelAC, setModelsAC } from "../state/actionCreators/modelsAC";
-import { zipFiles } from "./zip";
+import { ZipButton } from "./zip";
 import { addModel } from "../api/model";
 import { apiAddNode } from "../api/node";
 
@@ -39,7 +39,7 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "83214098-6d59-40ae-8444-fa7e4dddd23c";
+  const DataSetId = "ea69f3fa-5f73-4661-a5b3-5b3d1d423822";
 
   const fetchData = async () => {
     let response = await getDataSetEdges(DataSetId);
