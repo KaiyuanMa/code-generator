@@ -21,6 +21,14 @@
   z-index: -1;
 }
 
+
+.model_controls {
+  position: absolute;
+
+  top: 10px;
+  z-index: 4;
+}
+
 .side-bar {
   height: 100vh;
   width: 20%;
@@ -68,3 +76,4 @@
   transform:rotate(-90deg);
   z-index: 99;
 }
+

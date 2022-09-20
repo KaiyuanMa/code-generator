@@ -13,6 +13,7 @@ function ModelNode({ data }) {
   if (models.length > 1) {
     model = models.find((model) => model.id == modelId);
   }
+  
   useEffect(() => {
     if (models.length > 1) {
       model = models.find((model) => model.id == modelId);
@@ -42,9 +43,9 @@ function ModelNode({ data }) {
             <input type="text" placeholder={model.name} value={modelName} onChange={(ev)=>setModelName(ev.target.value)}/>
           </form>
         }
-        {model.entries.map((entry) => (
-          <ModelAttribute entry={entry} />
-        ))}
+        {model.entries
+          ? model.entries.map((entry) => <ModelAttribute entry={entry} />)
+          : null}
         <button
           onClick={() => {
             handelClick();
