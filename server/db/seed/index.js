@@ -14,7 +14,7 @@ const syncAndSeed = async () => {
     const dataSets = await createAndSeedDataSet(users);
     const models = await createAndSeedModel(dataSets);
     const nodes = await createAndSeedNode(models, dataSets);
-    const edges = await createAndSeedEdge(nodes, dataSets);
+    const edges = await createAndSeedEdge(nodes, dataSets, models);
     const entries = await createAndSeedEntry(models);
     const validations = await createAndSeedValidations(entries);
   } catch (ex) {

@@ -13,11 +13,11 @@ const Node = conn.define("node", {
     allowNull: false,
   },
   positionX: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   positionY: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
 });

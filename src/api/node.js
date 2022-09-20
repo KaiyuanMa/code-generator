@@ -17,7 +17,7 @@ const getDataSetNode = (dataSetId) => {
 };
 
 //POST
-const addNode = (node) => {
+const apiAddNode = (node) => {
   return axios.post(`/api/node`, node, token);
 };
 
@@ -26,4 +26,4 @@ const updateNode = (modelId, param) => {
   return axios.put(`/api/node/${modelId}`, param, token);
 };
 
-export { getNode, getDataSetNode, addNode, updateNode };
+export { getNode, getDataSetNode, apiAddNode, updateNode };
