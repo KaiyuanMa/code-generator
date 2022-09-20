@@ -121,7 +121,8 @@ function Flow() {
 
   return nodes.length > 1 ? (
     <div className="react-flow-wrapper">
-      <button onClick={() => zipFiles()}>DOWNLOAD ZIP</button>
+      <ZipButton />
+      <button>+</button>
       <ReactFlow
         nodes={nodes}
         edges={edges}

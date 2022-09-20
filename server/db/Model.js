@@ -11,6 +11,10 @@ const Model = conn.define("model", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  connectionType: {
+    type: Sequelize.ENUM(),
+    values: ['hasMany', 'belongsTo']
+  }
 });
 
 module.exports = Model;
