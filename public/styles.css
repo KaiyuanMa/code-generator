@@ -20,3 +20,10 @@
 .test-button {
   z-index: -1;
 }
+
+.model_controls {
+  position: absolute;
+
+  top: 10px;
+  z-index: 4;
+}

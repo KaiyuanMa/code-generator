@@ -12,12 +12,6 @@ function ModelNode({ data }) {
   if (models.length > 1) {
     model = models.find((model) => model.id == modelId);
   }
-  useEffect(() => {
-    if (models.length > 1) {
-      model = models.find((model) => model.id == modelId);
-    }
-    console.log(model);
-  }, [models]);
 
   const handelClick = () => {
     dispatch(addModelEntry(modelId));
@@ -27,10 +21,10 @@ function ModelNode({ data }) {
     <div className="model-node">
       <Handle type="target" position={Position.Top} />
       <div>
-        <p>{model.name}</p>
-        {model.entries.map((entry) => (
-          <ModelAttribute entry={entry} />
-        ))}
+        {model.name ? <p>{model.name}</p> : null}
+        {model.entries
+          ? model.entries.map((entry) => <ModelAttribute entry={entry} />)
+          : null}
         <button
           onClick={() => {
             handelClick();

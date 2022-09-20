@@ -55,6 +55,7 @@ const reducer = (state = { models: [] }, action) => {
           }
         }
       }
+      return { ...state };
     default:
       return state;
   }

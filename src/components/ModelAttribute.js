@@ -14,7 +14,9 @@ function ModelAttribute(prop) {
         value={name}
         placeholder="name"
         onChange={(e) => setName(e.target.value)}
+        disabled={true}
       />
+      <button>submit</button>
       {name == "id" ? (
         <div>
           <button>autoIncrement</button>
