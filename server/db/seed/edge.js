@@ -1,6 +1,6 @@
 const { Edge } = require("../index");
 
-const createAndSeedEdge = async (nodes, dataSets) => {
+const createAndSeedEdge = async (nodes, dataSets, models) => {
   try {
     const _EDGE = [
       {
@@ -8,12 +8,16 @@ const createAndSeedEdge = async (nodes, dataSets) => {
         target: nodes[1].id,
         label: "hasMany",
         dataSetId: dataSets[0].id,
+        sourceModelId: models[0].id,
+        targetModelId: models[1].id,
       },
       {
         source: nodes[0].id,
         target: nodes[2].id,
         label: "hasMany",
         dataSetId: dataSets[0].id,
+        sourceModelId: models[0].id,
+        targetModelId: models[2].id,
       },
     ];
     const edge = await Promise.all(_EDGE.map((edge) => Edge.create(edge)));
