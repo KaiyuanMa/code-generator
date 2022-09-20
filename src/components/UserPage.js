@@ -95,6 +95,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { getDataSets } from "../api/dataSet";
+import { setDataSetAC } from "../state/actionCreators/dataSetAC";
 import { exchangeToken, logout } from "../state/auth";
 
 class UserPage extends Component {
@@ -111,7 +112,7 @@ class UserPage extends Component {
   }
   render() {
     const { dataSets, term } = this.state;
-    const { auth, logout } = this.props;
+    const { auth, logout, setDataSetAC } = this.props;
 
     const searchResult = dataSets.filter(dataSet => dataSet.name.toLowerCase().includes(term.toLowerCase()))
 
@@ -129,7 +130,7 @@ class UserPage extends Component {
                   const { id, name } = dataSet
                   return (
                     <li key={ id }>
-                      <button><span>{ name }</span></button>
+                      <button onClick={ () => setDataSetAC(id) }><span>{ name }</span></button>
                     </li>
                   )
                 })
@@ -148,7 +149,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     exchangeToken: ()=> dispatch(exchangeToken()),
-    logout: ()=> dispatch(logout())
+    logout: ()=> dispatch(logout()),
+    setDataSetAC: (id)=> dispatch(setDataSetAC(id))
   }
 }
 
