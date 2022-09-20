@@ -15,6 +15,8 @@ Model.hasMany(Edge);
 Model.hasOne(Node);
 Model.hasMany(Entry);
 Model.hasMany(Model);
+Model.hasMany(Edge, { foreignKey: "sourceModelId" });
+Model.hasMany(Edge, { foreignKey: "targetModelId" });
 Entry.hasMany(Validation);
 
 module.exports = {

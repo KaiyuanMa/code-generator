@@ -31,16 +31,11 @@ const setModelAC = (modelId) => {
 };
 
 const addModelAC = (model) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await addModel(model);
-      dispatch({
-        type: "ADD_MODEL",
-        model: data,
-      });
-    } catch (ex) {
-      console.log(ex);
-    }
+  return (dispatch) => {
+    dispatch({
+      type: "ADD_MODEL",
+      model: model,
+    });
   };
 };
 
