@@ -8,6 +8,7 @@ import ReactFlow, {
   MiniMap,
   useReactFlow,
   ReactFlowProvider,
+  MarkerType,
 } from "react-flow-renderer";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataSetEdges } from "../api/edge";
@@ -18,12 +19,14 @@ import { addModel } from "../api/model";
 import { apiAddNode } from "../api/node";
 
 import ModelNode from "./ModelNode";
+import ModelEdge from "./ModelEdge";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
 };
 
 const nodeTypes = { model: ModelNode };
+const edgeTypes = { modelEdge: ModelEdge };
 
 function Flow() {
   const { dataSet } = useSelector((state) => state.dataSet);
@@ -36,22 +39,38 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "0ec22a80-402a-436a-b074-8b3c2e688517";
+  const DataSetId = "83214098-6d59-40ae-8444-fa7e4dddd23c";
 
   const fetchData = async () => {
     let response = await getDataSetEdges(DataSetId);
-    setEdges(response.data);
+    const edgeDummy = [];
+    for (let edge of response.data) {
+      const curr = {};
+      curr.id = edge.id;
+      curr.type = edge.type;
+      curr.source = edge.source;
+      curr.target = edge.target;
+      curr.animated = edge.animated;
+      curr.label = edge.label;
+      curr.data = { modelId: edge.label };
+      curr.markerEnd = {
+        type: MarkerType.ArrowClosed,
+      };
+      edgeDummy.push(curr);
+    }
+    setEdges(edgeDummy);
     response = await getDataSetNode(DataSetId);
-    const dummy = [];
+    const nodeDummy = [];
     for (let node of response.data) {
       const curr = {};
       curr.id = node.id;
       curr.type = node.type;
+      curr.dragHandle = ".model-node-drag";
       curr.position = { x: node.positionX, y: node.positionY };
       curr.data = { modelId: node.modelId };
-      dummy.push(curr);
+      nodeDummy.push(curr);
     }
-    setNodes(dummy);
+    setNodes(nodeDummy);
   };
 
   useEffect(() => {
@@ -101,7 +120,6 @@ function Flow() {
   );
 
   return nodes.length > 1 ? (
-
     <div className="react-flow-wrapper">
       <ZipButton />
       <button>+</button>
@@ -112,6 +130,7 @@ function Flow() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         style={rfStyle}
         defaultEdgeOptions={defaultEdgeOptions}
@@ -125,7 +144,7 @@ function Flow() {
           </button>
         </div>
       </ReactFlow>
-    </ReactFlowProvider>
+    </div>
   ) : null;
 }
 

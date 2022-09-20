@@ -56,7 +56,8 @@ const deleteModelAC = async (modelId) => {
 const editModelAC = (modelId, params) => {
   return async (dispatch) => {
     try {
-      const { data } = await updateModel(modelId, params);
+      await updateModel(modelId, params);
+      const { data } = await getModel(modelId);
       dispatch({
         type: "UPDATE_MODEL",
         modelId: modelId,
