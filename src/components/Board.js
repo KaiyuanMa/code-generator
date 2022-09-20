@@ -36,7 +36,7 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "9604a29c-2542-4e21-95bd-7537f0c2f2a8";
+  const DataSetId = "0ec22a80-402a-436a-b074-8b3c2e688517";
 
   const fetchData = async () => {
     let response = await getDataSetEdges(DataSetId);
@@ -59,7 +59,8 @@ function Flow() {
     fetchData();
   }, [dataSet]);
 
-  const handelClick = useCallback(() => {
+  //TODO: useCallback ?, check documentation
+  const handelClick = () => {
     const helper = async () => {
       const { data } = await addModel({
         name: "test",
@@ -83,14 +84,19 @@ function Flow() {
       setNodes((nds) => nds.concat(curr));
     };
     helper();
-    setNewX(newX + 10);
+    const x = newX + 10;
+    console.log(x);
+    setNewX(x);
     setNewY(newY + 10);
     console.log(newX);
     console.log(newY);
-  }, []);
+  };
 
   const onConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
+    (connection) => {
+      setEdges((eds) => addEdge(connection, eds));
+      console.log(connection);
+    },
     [setEdges]
   );
 

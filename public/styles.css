@@ -21,10 +21,8 @@
   z-index: -1;
 }
 
-
 .model_controls {
   position: absolute;
-
   top: 10px;
   z-index: 4;
 }
@@ -73,7 +71,6 @@
   position: absolute;
   top: 50%;
   left: -37px;
-  transform:rotate(-90deg);
+  transform: rotate(-90deg);
   z-index: 99;
 }
-
