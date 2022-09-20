@@ -50,11 +50,10 @@ router.post("/", isLoggedIn, haveAccess, async (req, res, next) => {
 
 router.put("/:modelId", isLoggedIn, haveAccess, async (req, res, next) => {
   try {
-    res.send(
-      await Model.update(req.body, {
-        where: { id: req.params.modelId },
-      })
-    );
+    await Model.update(req.body, {
+      where: { id: req.params.modelId },
+    });
+    res.sendStatus(201);
   } catch (ex) {
     next(ex);
   }

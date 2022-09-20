@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataSetEdges } from "../api/edge";
 import { getDataSetNode } from "../api/node";
 import { setModelsAC } from "../state/actionCreators/modelsAC";
-import { zipFiles } from "./zip";
+import { ZipButton } from "./zip";
 
 import ModelNode from "./ModelNode";
 
@@ -30,7 +30,7 @@ function Flow() {
   const dispatch = useDispatch();
 
   //put fooDataSetId in here, only for testing
-  const DataSetId = "93d82ec7-e1ac-4243-8b4f-bd63367d49bf";
+  const DataSetId = "105202fe-60c4-4c93-a158-0a4648e36b8e";
 
   const fetchData = async () => {
     let response = await getDataSetEdges(DataSetId);
@@ -68,8 +68,9 @@ function Flow() {
 
   return nodes.length > 1 ? (
     <div className="react-flow-wrapper">
+      <ZipButton />
       <button>+</button>
-      <button onClick={() => zipFiles()}>DOWNLOAD ZIP</button>
+      {/* <button onClick={() => zipFiles()}>DOWNLOAD ZIP</button> */}
       <ReactFlow
         nodes={nodes}
         edges={edges}

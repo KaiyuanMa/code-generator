@@ -6,7 +6,7 @@ const createAndSeedEntry = require("./entry");
 const createAndSeedValidations = require("./validation");
 const createAndSeedNode = require("./node");
 const createAndSeedEdge = require("./edge");
-
+const {Model} = require('../index')
 const syncAndSeed = async () => {
   try {
     await conn.sync({ force: true });

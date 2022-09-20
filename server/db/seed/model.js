@@ -24,6 +24,19 @@ const createAndSeedModel = async (datasets) => {
         dataSetId: datasets[2].id,
       },
     ];
+    const [banana, monkey] = await Promise.all([
+      Model.create({
+        name: 'banana',
+        dataSetId: datasets[0].id,
+      }),
+      Model.create({
+        name: 'Monkey',
+        connectionType: 'hasMany',
+        dataSetId: datasets[0].id,
+      })
+    ])
+    await monkey.update({modelId: banana.id})
+    
     const models = await Promise.all(
       _MODEL.map((model) => Model.create(model))
     );

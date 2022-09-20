@@ -14,6 +14,7 @@ DataSet.hasMany(Edge);
 Model.hasMany(Edge);
 Model.hasOne(Node);
 Model.hasMany(Entry);
+Model.hasMany(Model);
 Entry.hasMany(Validation);
 
 module.exports = {
