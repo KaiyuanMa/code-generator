@@ -31,7 +31,7 @@ const addModel = (model) => {
 //PUT
 
 const updateModel = (modelId, params) => {
-  return axios.put(`/api/model/${modelId}`, params, headers);
+  return axios.put(`/api/model/${modelId}`, params, token);
 };
 
 export { getModel, getModelEntries, deleteModel, addModel, updateModel };
