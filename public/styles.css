@@ -21,9 +21,59 @@
   z-index: -1;
 }
 
+
 .model_controls {
   position: absolute;
 
   top: 10px;
   z-index: 4;
 }
+
+.side-bar {
+  height: 100vh;
+  width: 20%;
+  position: fixed;
+  right: 0;
+  z-index: 99;
+  background-color: #e9effb;
+}
+
+.side-bar-header {
+  padding: 0 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.side-bar > input {
+  display: block;
+  margin: auto;
+  width: 70%;
+  max-width: 250px;
+}
+
+.side-bar > ul {
+  text-align: center;
+  padding: 0;
+  list-style-type: none;
+}
+
+.side-bar > ul > li > button {
+  margin: 0 auto 20px;
+  height: 130px;
+  width: 130px;
+  border-radius: 10%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle {
+  position: absolute;
+  top: 50%;
+  left: -37px;
+  transform:rotate(-90deg);
+  z-index: 99;
+}
+
