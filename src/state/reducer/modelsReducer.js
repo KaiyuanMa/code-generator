@@ -29,7 +29,9 @@ const reducer = (state = { models: [] }, action) => {
     case "ADD_ENTRY":
       for (let model of state.models) {
         if (model.id == action.modelId) {
-          model.entries = [...model.entries, action.entry];
+          if (!model.entries) {
+            model.entries = [action.entry];
+          } else model.entries = [...model.entries, action.entry];
           break;
         }
       }

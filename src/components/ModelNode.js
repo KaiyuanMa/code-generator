@@ -35,7 +35,7 @@ function ModelNode(props) {
   }, [models]);
 
   const handelClick = () => {
-    dispatch(addModelEntry(modelId));
+    dispatch(addModelEntry({ modelId: modelId }));
   };
 
   const inputHelper = () => {
@@ -67,12 +67,12 @@ function ModelNode(props) {
   };
 
   const handelDelete = () => {
-    data.deleteNode(props);
     const deleteNodeAndModel = async (data) => {
       await apiDeleteNode(data.modelId);
       dispatch(deleteModelAC(data.modelId));
     };
     deleteNodeAndModel(data);
+    data.deleteNode(props);
   };
 
   return models.length > 0 ? (
