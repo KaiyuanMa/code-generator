@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { isLoggedIn, haveAccess } = require("./middleware");
 const { Model, DataSet, Edge } = require("../db");
+const Op = require("Sequelize").Op;
 
 //GET
 
@@ -40,11 +41,27 @@ router.delete("/:edgeId", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.delete("/node/:nodeIdA/:nodeIdB", isLoggedIn, async (req, res, next) => {
+  try {
+    const edge = await Edge.findOne({
+      where: {
+        [Op.or]: [
+          { source: req.params.nodeIdA, target: req.params.nodeIdB },
+          { target: req.params.nodeIdA, source: req.params.nodeIdB },
+        ],
+      },
+    });
+    edge.destroy();
+    res.sendStatus(202);
+  } catch (ex) {
+    console.log(ex);
+  }
+});
+
 //POST
 router.post("/", isLoggedIn, haveAccess, async (req, res, next) => {
   try {
-    const model = await Model.findByPk(req.body.modelId);
-    const dataSet = await DataSet.findByPk(model.dataSetId);
+    const dataSet = await DataSet.findByPk(req.body.dataSetId);
     if (dataSet.userId != req.user.id) throw "Wrong User";
     res.send(await Edge.create(req.body));
   } catch (ex) {
