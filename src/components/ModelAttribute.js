@@ -23,7 +23,6 @@ function ModelAttribute(prop) {
     entryForm?.addEventListener("dblclick", function () {
       entryInput.disabled = false;
       entryInput.focus();
-      console.log(1);
     });
     entryInput?.addEventListener("blur", function () {
       entryInput.disabled = true;
