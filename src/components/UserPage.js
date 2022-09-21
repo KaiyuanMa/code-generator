@@ -94,8 +94,8 @@
 
 import React, { Component } from "react";
 import { connect } from 'react-redux'
-import { getDataSets } from "../api/dataSet";
-import { setDataSetAC } from "../state/actionCreators/dataSetAC";
+import { addDataSet, getDataSets } from "../api/dataSet";
+import { addDataSetAC, setDataSetAC } from "../state/actionCreators/dataSetAC";
 import { exchangeToken, logout } from "../state/auth";
 
 class UserPage extends Component {
@@ -105,14 +105,23 @@ class UserPage extends Component {
       dataSets: [],
       term: ''
     }
+    this.createDataSet = this.createDataSet.bind(this);
   }
   async componentDidMount() {
     const response = await getDataSets();
     this.setState({ dataSets: response.data })
   }
+  createDataSet() {
+    const dataSet = {
+      name: `${this.props.auth.username} Data Set`,
+      userId: this.props.auth.id
+    }
+    this.props.addDataSet(dataSet);
+  }
   render() {
     const { dataSets, term } = this.state;
-    const { auth, logout, setDataSetAC } = this.props;
+    const { auth, logout, setDataSet } = this.props;
+    const { createDataSet } = this;
 
     const searchResult = dataSets.filter(dataSet => dataSet.name.toLowerCase().includes(term.toLowerCase()))
 
@@ -124,13 +133,13 @@ class UserPage extends Component {
           </div>
           <input placeholder='Search for Dataset' onChange={ ev => this.setState({ term: ev.target.value })} />
           <ul>
-              <li><button><span style={{ fontSize: '2rem' }}>+</span></button></li>
+              <li><button onClick={ createDataSet }><span style={{ fontSize: '2rem' }}>+</span></button></li>
               {
                 searchResult.map(dataSet => {
                   const { id, name } = dataSet
                   return (
                     <li key={ id }>
-                      <button onClick={ () => setDataSetAC(id) }><span>{ name }</span></button>
+                      <button onClick={ () => setDataSet(id) }><span>{ name }</span></button>
                     </li>
                   )
                 })
@@ -150,7 +159,8 @@ const mapDispatch = dispatch => {
   return {
     exchangeToken: ()=> dispatch(exchangeToken()),
     logout: ()=> dispatch(logout()),
-    setDataSetAC: (id)=> dispatch(setDataSetAC(id))
+    setDataSet: (id)=> dispatch(setDataSetAC(id)),
+    addDataSet: (dataSet)=> dispatch(addDataSetAC(dataSet))
   }
 }
 
