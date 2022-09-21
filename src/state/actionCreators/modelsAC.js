@@ -80,13 +80,13 @@ const editModelAC = (modelId, params) => {
 };
 
 //ENTRY
-const addModelEntry = (modelId) => {
+const addModelEntry = (params) => {
   return async (dispatch) => {
     try {
-      const { data } = await addEntry({ modelId: modelId });
+      const { data } = await addEntry(params);
       dispatch({
         type: "ADD_ENTRY",
-        modelId: modelId,
+        modelId: params.modelId,
         entry: data,
       });
     } catch (ex) {

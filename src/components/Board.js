@@ -17,6 +17,7 @@ import {
   addModelAC,
   setModelsAC,
   deleteModelAC,
+  addModelEntry,
 } from "../state/actionCreators/modelsAC";
 import { ZipButton } from "./zip";
 import { apiAddModel } from "../api/model";
@@ -44,11 +45,10 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "4faa060c-3d47-45d8-b2ec-1ed571af691f";
+  const DataSetId = "c64f4911-2ced-4412-9f9a-9c0b33879638";
 
   const deleteNode = (node) => {
     onNodesChange([{ id: node.id, type: "remove" }]);
-
     //TODO: delete edges when deleting node on custom delete function
     // const currEdges = getConnectedEdges(
     //   [nodes.find((currNode) => currNode.id == node.id)],
@@ -99,6 +99,7 @@ function Flow() {
         dataSetId: DataSetId,
       });
       dispatch(addModelAC(data));
+      console.log(data);
       const response = await apiAddNode({
         modelId: data.id,
         dataSetId: DataSetId,
@@ -114,14 +115,19 @@ function Flow() {
       curr.data = { modelId: node.modelId, deleteNode };
       curr.dragHandle = ".model-node-header";
       setNodes((nds) => nds.concat(curr));
+      dispatch(
+        addModelEntry({
+          modelId: data.id,
+          name: "id",
+          autoIncrement: true,
+          type: "Sequelize.INTEGER",
+          primaryKey: true,
+        })
+      );
     };
     helper();
-    const x = newX + 10;
-    console.log(x);
-    setNewX(x);
+    setNewX(newX + 10);
     setNewY(newY + 10);
-    console.log(newX);
-    console.log(newY);
   };
 
   //
