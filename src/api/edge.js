@@ -32,10 +32,17 @@ const apiAddEdge = (edge) => {
   return axios.post(`/api/edge`, edge, token);
 };
 
+//PUT
+
+const apiUpdateEdge = (edgeId, params) => {
+  return axios.put(`/api/edge/${edgeId}`, params, token);
+};
+
 export {
   getEdges,
   getDataSetEdges,
   apiDeleteEdge,
   apiAddEdge,
   apiDeleteEdgeByNode,
+  apiUpdateEdge,
 };
