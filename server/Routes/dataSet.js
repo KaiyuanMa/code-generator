@@ -35,6 +35,7 @@ router.get(
               include: Validation,
             },
           ],
+          order: [[Entry, "createdAt"]],
         })
       );
     } catch (ex) {

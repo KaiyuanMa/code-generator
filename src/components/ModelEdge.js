@@ -38,6 +38,7 @@ function ModelEdge({
     const relationSelect = document.getElementById(`${id}-select`);
     relationSelectWrapper?.addEventListener("dblclick", function () {
       relationSelect.disabled = false;
+      relationSelect.focus();
     });
     relationSelect?.addEventListener("blur", function () {
       relationSelect.disabled = true;
