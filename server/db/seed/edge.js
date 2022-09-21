@@ -8,8 +8,6 @@ const createAndSeedEdge = async (nodes, dataSets, models) => {
         target: nodes[1].id,
         label: "hasMany",
         dataSetId: dataSets[0].id,
-        sourceModelId: models[0].id,
-        targetModelId: models[1].id,
         type: "modelEdge",
       },
       {
@@ -17,8 +15,6 @@ const createAndSeedEdge = async (nodes, dataSets, models) => {
         target: nodes[2].id,
         label: "hasMany",
         dataSetId: dataSets[0].id,
-        sourceModelId: models[0].id,
-        targetModelId: models[2].id,
         type: "modelEdge",
       },
     ];

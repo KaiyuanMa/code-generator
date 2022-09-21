@@ -1,5 +1,10 @@
 import { getDataSetModels } from "../../api/dataSet";
-import { getModel, addModel, deleteModel, updateModel } from "../../api/model";
+import {
+  getModel,
+  addModel,
+  apiDeleteModel,
+  updateModel,
+} from "../../api/model";
 import { addEntry, deleteEntry } from "../../api/entry";
 
 const setModelsAC = (dataSetId) => {
@@ -39,10 +44,10 @@ const addModelAC = (model) => {
   };
 };
 
-const deleteModelAC = async (modelId) => {
+const deleteModelAC = (modelId) => {
   return async (dispatch) => {
     try {
-      await deleteModel(modelId);
+      await apiDeleteModel(modelId);
       dispatch({
         type: "DEL_MODEL",
         modelId: modelId,

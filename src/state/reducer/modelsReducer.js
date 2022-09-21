@@ -13,11 +13,10 @@ const reducer = (state = { models: [] }, action) => {
     case "ADD_MODEL":
       return { ...state, models: [...state.models, action.model] };
     case "DEL_MODEL":
+      const dummy = state.models.filter((model) => action.modelId != model.id);
       return {
         ...state,
-        models: state.models.filter((model) => {
-          action.modelId !== model.id;
-        }),
+        models: dummy,
       };
     case "UPDATE_MODEL":
       for (let model of state.models) {
