@@ -8,7 +8,7 @@ const token = {
 
 //GET
 
-const getEntry = (entryId) => {
+const apiGetEntry = (entryId) => {
   return axios.get(`/api/entry/${entryId}`, token);
 };
 
@@ -30,8 +30,14 @@ const addEntry = (entry) => {
 
 //PUT
 
-const updateEntry = (entryId, params) => {
+const apiUpdateEntry = (entryId, params) => {
   return axios.put(`/api/entry/${entryId}`, params, token);
 };
 
-export { getEntry, getEntryValidations, deleteEntry, addEntry, updateEntry };
+export {
+  apiGetEntry,
+  getEntryValidations,
+  deleteEntry,
+  addEntry,
+  apiUpdateEntry,
+};

@@ -48,7 +48,6 @@ function ModelNode(props) {
     });
     modelInput?.addEventListener("blur", function () {
       modelInput.disabled = true;
-      console.log(modelNameRef);
       updateModelName();
     });
     modelInput?.addEventListener("keydown", (event) => {

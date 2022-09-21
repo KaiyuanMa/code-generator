@@ -5,7 +5,12 @@ import {
   apiDeleteModel,
   updateModel,
 } from "../../api/model";
-import { addEntry, deleteEntry } from "../../api/entry";
+import {
+  addEntry,
+  deleteEntry,
+  apiUpdateEntry,
+  apiGetEntry,
+} from "../../api/entry";
 
 const setModelsAC = (dataSetId) => {
   return async (dispatch) => {
@@ -105,6 +110,23 @@ const deleteModelEntry = (modelId, entryId) => {
   };
 };
 
+const updateModelEntryAC = (modelId, entryId, params) => {
+  return async (dispatch) => {
+    try {
+      await apiUpdateEntry(entryId, params);
+      const { data } = await apiGetEntry(entryId);
+      await dispatch({
+        type: "UPDATE_ENTRY",
+        modelId: modelId,
+        entryId: entryId,
+        entry: data,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+};
+
 export {
   setModelsAC,
   setModelAC,
@@ -113,4 +135,5 @@ export {
   editModelAC,
   addModelEntry,
   deleteModelEntry,
+  updateModelEntryAC,
 };
