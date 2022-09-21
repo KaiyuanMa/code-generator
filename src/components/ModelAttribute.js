@@ -8,14 +8,14 @@ function ModelAttribute(prop) {
   const modelId = entry.modelId;
   const entryId = entry.id;
   const [name, setName] = useState(entry.name);
-  
+
   return (
     <div>
       <input
         value={name}
         placeholder="name"
         onChange={(e) => setName(e.target.value)}
-        disabled={true}
+        disabled={false}
       />
       <button>submit</button>
       {name == "id" ? (

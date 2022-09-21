@@ -34,6 +34,7 @@
   right: 0;
   z-index: 99;
   background-color: #e9effb;
+  overflow-y: scroll;
 }
 
 .side-bar-header {
@@ -70,7 +71,33 @@
 .toggle {
   position: absolute;
   top: 50%;
-  left: -37px;
   transform: rotate(-90deg);
   z-index: 99;
+}
+
+/* ModelEdge */
+
+.model-edge-foreign-object {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.model-edge-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ModelEdge */
+.model-node-header {
+  width: 100%;
+  height: 1.5rem;
+  background-color: bisque;
+}
+
+.model-node-header button {
+  height: 100%;
 }

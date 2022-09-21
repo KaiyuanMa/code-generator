@@ -16,6 +16,11 @@ const getDataSetNode = (dataSetId) => {
   return axios.get(`/api/node/${dataSetId}`, token);
 };
 
+//DELETE
+const apiDeleteNode = (modelId) => {
+  return axios.delete(`/api/node/model/${modelId}`, token);
+};
+
 //POST
 const apiAddNode = (node) => {
   return axios.post(`/api/node`, node, token);
@@ -26,4 +31,4 @@ const updateNode = (modelId, param) => {
   return axios.put(`/api/node/${modelId}`, param, token);
 };
 
-export { getNode, getDataSetNode, apiAddNode, updateNode };
+export { getNode, getDataSetNode, apiAddNode, updateNode, apiDeleteNode };

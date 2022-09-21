@@ -111,9 +111,15 @@ class UserPage extends Component {
     const response = await getDataSets();
     this.setState({ dataSets: response.data })
   }
+  async componentDidUpdate(prevProps) {
+    if(prevProps.dataSet.dataSet.id !== this.props.dataSet.dataSet.id) {
+      const response = await getDataSets();
+      this.setState({ dataSets: response.data })
+    }
+  }
   createDataSet() {
     const dataSet = {
-      name: `${this.props.auth.username} Data Set`,
+      name: `${this.props.auth.username}DataSet`,
       userId: this.props.auth.id
     }
     this.props.addDataSet(dataSet);
@@ -151,7 +157,6 @@ class UserPage extends Component {
 }
 
 const mapState = state => {
-  console.log(state)
   return state
 }
 

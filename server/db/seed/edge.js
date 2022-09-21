@@ -10,6 +10,7 @@ const createAndSeedEdge = async (nodes, dataSets, models) => {
         dataSetId: dataSets[0].id,
         sourceModelId: models[0].id,
         targetModelId: models[1].id,
+        type: "modelEdge",
       },
       {
         source: nodes[0].id,
@@ -18,6 +19,7 @@ const createAndSeedEdge = async (nodes, dataSets, models) => {
         dataSetId: dataSets[0].id,
         sourceModelId: models[0].id,
         targetModelId: models[2].id,
+        type: "modelEdge",
       },
     ];
     const edge = await Promise.all(_EDGE.map((edge) => Edge.create(edge)));

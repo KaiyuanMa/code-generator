@@ -28,6 +28,24 @@ router.get(
   }
 );
 
+//DELETE
+router.delete(
+  "/model/:modelId",
+  isLoggedIn,
+  haveAccess,
+  async (req, res, next) => {
+    try {
+      const node = await Node.findOne({
+        where: { modelId: req.params.modelId },
+      });
+      await node.destroy();
+      res.sendStatus(202);
+    } catch (ex) {
+      next(ex);
+    }
+  }
+);
+
 //POST
 
 router.post("/", isLoggedIn, haveAccess, async (req, res, next) => {

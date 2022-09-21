@@ -4,11 +4,7 @@ const createAndSeedDataSet = async (users) => {
   try {
     const _DataSet = [
       {
-        name: "fooDataSet_1",
-        userId: users[0].dataValues.id,
-      },
-      {
-        name: "fooDataSet_2",
+        name: "fooDataSet",
         userId: users[0].dataValues.id,
       },
       {

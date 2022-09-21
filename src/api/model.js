@@ -18,13 +18,13 @@ const getModelEntries = (modelId) => {
 
 //DELETE
 
-const deleteModel = (modelId) => {
+const apiDeleteModel = (modelId) => {
   return axios.delete(`/api/model/${modelId}`, token);
 };
 
 //POST
 
-const addModel = (model) => {
+const apiAddModel = (model) => {
   return axios.post("/api/model", model, token);
 };
 
@@ -34,4 +34,4 @@ const updateModel = (modelId, params) => {
   return axios.put(`/api/model/${modelId}`, params, token);
 };
 
-export { getModel, getModelEntries, deleteModel, addModel, updateModel };
+export { getModel, getModelEntries, apiDeleteModel, apiAddModel, updateModel };
