@@ -4,8 +4,22 @@ import saveAs from "file-saver";
 import { useSelector } from "react-redux";
 
 const zipFiles = (models, databaseName) => {
+
   const getName = (model) =>
     models.filter((m) => m.id === model.modelId)[0].name;
+
+  const printModelEntries = model => {
+    const defaultEntries = ['id', 'modelId', 'createdAt', 'updatedAt', 'validations']
+    const entries = model.entries.map(entry => {
+      const toup = Object.entries(entry)
+
+      const filterEntries = toup.filter( key_val => key_val[1] && !defaultEntries.includes(key_val[0]))
+      const printableEntries = filterEntries.map( e => `\n  ${e[0]}: ${e[1]}`)
+      return printableEntries
+    })
+    console.log(entries)
+    return entries
+  }
 
   const dbName = databaseName;
   const modelNames = models.map((model) => model.name);
@@ -40,13 +54,15 @@ const zipFiles = (models, databaseName) => {
   ]);
 
   const modelsBlob = models.map((model) => {
+    const modelEntries = printModelEntries(model)
     return {
       name: model.name,
       blob: new Blob([
         'const conn = require("./conn");\n',
         "const { Sequelize } = conn;\n\n",
-        `const ${model.name} = conn.define("${model.name}", {\n`,
-        "});\n",
+        `const ${model.name} = conn.define("${model.name}", {`,
+        ...modelEntries,
+        "\n});\n",
       ]),
     };
   });
@@ -86,7 +102,7 @@ export function ZipButton() {
       >
         Export
       </button>
-      {popUp && (
+      { popUp && (
         <div
           style={{
             position: "fixed",
