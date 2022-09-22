@@ -27,13 +27,22 @@
   z-index: 4;
 }
 
-.side-bar {
-  height: 100vh;
-  width: 20%;
+.side-bar-container {
   position: fixed;
   right: 0;
+  display: flex;
+  width: 20%;
+  height: 100%;
   z-index: 99;
+}
+
+.side-bar {
+  height: 100vh;
+  width: 100%;
+  /* position: fixed; */
+  /* right: 0; */
   background-color: #e9effb;
+  overflow-y: scroll;
 }
 
 .side-bar-header {
@@ -67,10 +76,19 @@
   align-items: center;
 }
 
+.button-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin: 0;
+  position: relative;
+  /* width: 2rem; */
+}
+
 .toggle {
   position: absolute;
-  top: 50%;
-  left: -37px;
+  right: -14px;
+  height: 1.5rem;
   transform: rotate(-90deg);
   z-index: 99;
 }
