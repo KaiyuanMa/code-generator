@@ -18,14 +18,31 @@ const getDataSetEdges = (dataSetId) => {
 
 //DELETE
 
-const deleteEdge = (edgeId) => {
+const apiDeleteEdge = (edgeId) => {
   return axios.delete(`/api/edge/${edgeId}`, token);
+};
+
+const apiDeleteEdgeByNode = (idA, idB) => {
+  return axios.delete(`/api/edge/node/${idA}/${idB}`, token);
 };
 
 //POST
 
-const addEdge = (edge) => {
+const apiAddEdge = (edge) => {
   return axios.post(`/api/edge`, edge, token);
 };
 
-export { getEdges, getDataSetEdges, deleteEdge, addEdge };
+//PUT
+
+const apiUpdateEdge = (edgeId, params) => {
+  return axios.put(`/api/edge/${edgeId}`, params, token);
+};
+
+export {
+  getEdges,
+  getDataSetEdges,
+  apiDeleteEdge,
+  apiAddEdge,
+  apiDeleteEdgeByNode,
+  apiUpdateEdge,
+};

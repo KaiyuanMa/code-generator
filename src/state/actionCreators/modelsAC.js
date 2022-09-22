@@ -1,6 +1,16 @@
 import { getDataSetModels } from "../../api/dataSet";
-import { getModel, addModel, deleteModel, updateModel } from "../../api/model";
-import { addEntry, deleteEntry } from "../../api/entry";
+import {
+  getModel,
+  addModel,
+  apiDeleteModel,
+  updateModel,
+} from "../../api/model";
+import {
+  addEntry,
+  deleteEntry,
+  apiUpdateEntry,
+  apiGetEntry,
+} from "../../api/entry";
 
 const setModelsAC = (dataSetId) => {
   return async (dispatch) => {
@@ -39,10 +49,10 @@ const addModelAC = (model) => {
   };
 };
 
-const deleteModelAC = async (modelId) => {
+const deleteModelAC = (modelId) => {
   return async (dispatch) => {
     try {
-      await deleteModel(modelId);
+      await apiDeleteModel(modelId);
       dispatch({
         type: "DEL_MODEL",
         modelId: modelId,
@@ -70,13 +80,13 @@ const editModelAC = (modelId, params) => {
 };
 
 //ENTRY
-const addModelEntry = (modelId) => {
+const addModelEntry = (params) => {
   return async (dispatch) => {
     try {
-      const { data } = await addEntry({ modelId: modelId });
+      const { data } = await addEntry(params);
       dispatch({
         type: "ADD_ENTRY",
-        modelId: modelId,
+        modelId: params.modelId,
         entry: data,
       });
     } catch (ex) {
@@ -100,6 +110,23 @@ const deleteModelEntry = (modelId, entryId) => {
   };
 };
 
+const updateModelEntryAC = (modelId, entryId, params) => {
+  return async (dispatch) => {
+    try {
+      await apiUpdateEntry(entryId, params);
+      const { data } = await apiGetEntry(entryId);
+      await dispatch({
+        type: "UPDATE_ENTRY",
+        modelId: modelId,
+        entryId: entryId,
+        entry: data,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+};
+
 export {
   setModelsAC,
   setModelAC,
@@ -108,4 +135,5 @@ export {
   editModelAC,
   addModelEntry,
   deleteModelEntry,
+  updateModelEntryAC,
 };

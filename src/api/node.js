@@ -27,8 +27,8 @@ const apiAddNode = (node) => {
 };
 
 //PUT
-const updateNode = (modelId, param) => {
-  return axios.put(`/api/node/${modelId}`, param, token);
+const apiUpdateNode = (modelId, params) => {
+  return axios.put(`/api/node/${modelId}`, params, token);
 };
 
-export { getNode, getDataSetNode, apiAddNode, updateNode, apiDeleteNode };
+export { getNode, getDataSetNode, apiAddNode, apiUpdateNode, apiDeleteNode };

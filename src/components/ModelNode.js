@@ -2,7 +2,11 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 import { Handle, Position } from "react-flow-renderer";
 import { useDispatch, useSelector } from "react-redux";
 import ModelAttribute from "./ModelAttribute";
-import { addModelEntry, editModelAC } from "../state/actionCreators/modelsAC";
+import {
+  addModelEntry,
+  editModelAC,
+  deleteModelAC,
+} from "../state/actionCreators/modelsAC";
 import { apiDeleteModel } from "../api/model";
 import { apiDeleteNode } from "../api/node";
 
@@ -31,7 +35,7 @@ function ModelNode(props) {
   }, [models]);
 
   const handelClick = () => {
-    dispatch(addModelEntry(modelId));
+    dispatch(addModelEntry({ modelId: modelId }));
   };
 
   const inputHelper = () => {
@@ -44,7 +48,6 @@ function ModelNode(props) {
     });
     modelInput?.addEventListener("blur", function () {
       modelInput.disabled = true;
-      console.log(modelNameRef);
       updateModelName();
     });
     modelInput?.addEventListener("keydown", (event) => {
@@ -52,7 +55,6 @@ function ModelNode(props) {
         modelInput.disabled = true;
       }
     });
-    console.log(1);
   };
 
   const updateModelName = () => {
@@ -65,12 +67,12 @@ function ModelNode(props) {
   };
 
   const handelDelete = () => {
-    data.deleteNode(props.id);
     const deleteNodeAndModel = async (data) => {
       await apiDeleteNode(data.modelId);
-      await apiDeleteModel(data.modelId);
+      dispatch(deleteModelAC(data.modelId));
     };
     deleteNodeAndModel(data);
+    data.deleteNode(props);
   };
 
   return models.length > 0 ? (
