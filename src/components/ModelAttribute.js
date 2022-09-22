@@ -44,36 +44,68 @@ function ModelAttribute(prop) {
     updateEntryName();
   };
 
+  const showEntryContent = () => {
+    const entryBtn = document.getElementById(`${entryId}-btn`);
+    const entryContent = document.getElementById(`${entryId}-content`);
+    entryBtn?.classList?.toggle("model-attribute-expand-btn-active");
+    if (entryBtn?.classList?.contains("model-attribute-expand-btn-active")) {
+      entryContent.style.height = "10rem";
+    } else {
+      entryContent.style.height = "0rem";
+    }
+  };
+
   useEffect(() => {
     inputHelper();
   }, []);
+  console.log(entry);
 
   return (
-    <div>
-      <form id={`${entryId}-form`} onSubmit={handelSubmit}>
-        <input
-          value={name}
-          placeholder="name"
-          id={`${entryId}-input`}
-          onChange={(e) => setName(e.target.value)}
-          disabled={true}
-        />
-      </form>
-      <button>submit</button>
-      {name == "id" ? (
-        <div>
-          <button>autoIncrement</button>
-          <button>primaryKey</button>
+    <div className="model-attribute-wrapper">
+      <div className="model-attribute-header">
+        <div className="model-attribute-header-content">
+          <form
+            id={`${entryId}-form`}
+            onSubmit={handelSubmit}
+            className="model-attribute-header-content-form"
+          >
+            <input
+              value={name}
+              placeholder="name"
+              id={`${entryId}-input`}
+              onChange={(e) => setName(e.target.value)}
+              disabled={true}
+              className="model-attribute-header-content-input"
+            />
+          </form>
+          <div className="model-attribute-header-btns">
+            {name == "id" ? (
+              <div>
+                <button>autoIncrement</button>
+                <button>primaryKey</button>
+              </div>
+            ) : (
+              <div>
+                <button>unique</button>
+                <button>allowNull</button>
+              </div>
+            )}
+            <button
+              onClick={() => dispatch(deleteModelEntry(modelId, entryId))}
+            >
+              X
+            </button>
+          </div>
         </div>
-      ) : (
-        <div>
-          <button>unique</button>
-          <button>allowNull</button>
-        </div>
-      )}
-      <button onClick={() => dispatch(deleteModelEntry(modelId, entryId))}>
-        X
-      </button>
+        <button
+          className="model-attribute-expand-btn"
+          id={`${entryId}-btn`}
+          onClick={showEntryContent}
+        >
+          open
+        </button>
+      </div>
+      <div className="model-attribute-content" id={`${entryId}-content`}></div>
     </div>
   );
 }

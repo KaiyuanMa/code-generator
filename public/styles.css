@@ -101,3 +101,43 @@
 .model-node-header button {
   height: 100%;
 }
+
+/* ModelAttribute */
+.model-attribute-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.model-attribute-header {
+  display: flex;
+  width: 100%;
+}
+
+.model-attribute-header-btns {
+  display: flex;
+}
+
+.model-attribute-header-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.model-attribute-expand-btn {
+  width: 20%;
+}
+
+.model-attribute-header-content-form {
+  width: 100%;
+}
+
+.model-attribute-header-content-input {
+  width: 100%;
+}
+
+.model-attribute-content {
+  width: 100%;
+  height: 0;
+  background-color: aqua;
+  transition-duration: 0.2s;
+}
