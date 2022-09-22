@@ -31,14 +31,14 @@
   position: fixed;
   right: 0;
   display: flex;
-  width: 20%;
+  width: fit-content;
   height: 100%;
   z-index: 99;
 }
 
 .side-bar {
   height: 100vh;
-  width: 100%;
+  /* width: 50rem; */
   /* position: fixed; */
   /* right: 0; */
   background-color: #e9effb;
