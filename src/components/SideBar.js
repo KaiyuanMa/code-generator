@@ -18,8 +18,11 @@ class SideBar extends Component {
     const { isOpen } = this.state;
     const { isLoggedIn } = this.props;
     return (
-      <div>
-        <div className='side-bar' style={{ width: isOpen ? '20%' : 0 }}>
+      <div className='side-bar-container'>
+        <div className='button-wrapper'>
+          <button onClick={ () => this.setState({ isOpen: !isOpen }) } className='toggle' >toggle</button>
+        </div>
+        <div className='side-bar' style={{ width: isOpen ? '100%' : 0 }}>
           {
               isLoggedIn ? (
                   <UserPage />
@@ -28,7 +31,6 @@ class SideBar extends Component {
               )
           }
         </div>
-        <button onClick={ () => this.setState({ isOpen: !isOpen }) } className='toggle' style={{ right: isOpen ? '272px' : '-16px' }}>toggle</button>
       </div>
     );
   }
