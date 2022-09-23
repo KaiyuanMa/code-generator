@@ -52,6 +52,50 @@ const reducer = (state = { models: [] }, action) => {
           for (let entry of model.entries) {
             if (entry.id == action.entryId) {
               entry = action.entry;
+              break;
+            }
+          }
+        }
+      }
+      return { ...state };
+    //Validation
+    case "ADD_VALIDATION":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          for (let entry of model.entries) {
+            if (entry.id == action.entryId) {
+              entry.validations = [...entry.validations, action.validation];
+              break;
+            }
+          }
+        }
+      }
+      return { ...state };
+    case "DELETE_VALIDATION":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          for (let entry of model.entries) {
+            if (entry.id == action.entryId) {
+              entry.validations = entry.validations.filter(
+                (validation) => validation.id != action.validationId
+              );
+              break;
+            }
+          }
+        }
+      }
+      return { ...state };
+    case "UPDATE_VALIDATION":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          for (let entry of model.entries) {
+            if (entry.id == action.entryId) {
+              for (let validation of entry.validations) {
+                if (validation.id == action.validationId) {
+                  validation = action.validation;
+                  break;
+                }
+              }
             }
           }
         }
