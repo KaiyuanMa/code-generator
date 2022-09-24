@@ -20,6 +20,7 @@ import {
   addModelEntry,
 } from "../state/actionCreators/modelsAC";
 import { ZipButton } from "./zip";
+import DeleteButton from './DataSetDelete';
 import { apiAddModel } from "../api/model";
 import { apiAddNode, apiDeleteNode, apiUpdateNode } from "../api/node";
 import { apiAddEdge, apiDeleteEdgeByNode } from "../api/edge";
@@ -45,7 +46,7 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "64427e76-4b46-41ba-b4f7-22c898f15770";
+  const DataSetId = "d2de11f5-b258-4deb-b5c3-0972132af190";
 
   const deleteNode = (node) => {
     onNodesChange([{ id: node.id, type: "remove" }]);
@@ -191,6 +192,7 @@ function Flow() {
   return nodes.length > 1 ? (
     <div className="react-flow-wrapper">
       <ZipButton />
+      <DeleteButton />
       <ReactFlow
         nodes={nodes}
         edges={edges}
