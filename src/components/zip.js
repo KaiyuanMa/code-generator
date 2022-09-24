@@ -4,7 +4,7 @@ import saveAs from "file-saver";
 import { useSelector } from "react-redux";
 import { getDataSetNode } from "../api/node";
 import { getDataSetEdges } from "../api/edge";
-
+import { getDataSetModels } from '../api/dataSet'
 const zipFiles = (models, databaseName) => {
 
   const getName = (model) =>
@@ -84,22 +84,29 @@ const zipFiles = (models, databaseName) => {
 
 export function ZipButton() {
   const { dataSet } = useSelector(state => state.dataSet)
-  console.log('le state', dataSet)
-
-  const fetchDataSet = async() => {
-    const edges = await getDataSetEdges(dataSet.id)
-    const nodes = await getDataSetNode(dataSet.id)
-
-    
-
-    console.log('edges: ', edges.data)
-    console.log('nodes: ', nodes.data)
-  }
-  fetchDataSet()
-
   const { models } = useSelector(state => state.models);
   const [ popUp, setPopUp ] = useState(false);
   const [ dbName, setDbName ] = useState("");
+
+  const getModelRelations = async() => {
+    const edges = (await getDataSetEdges(dataSet.id)).data
+    const nodes = (await getDataSetNode(dataSet.id)).data    
+    const models = (await getDataSetModels(dataSet.id)).data
+
+    const getModelName = (id) => {
+      const model = models.filter( model => model.id === id)[0]
+      return model.name
+    }
+    
+    const getModelId = (id) => {
+      const node = nodes.filter( node => id === node.id)[0]
+      return getModelName(node.modelId)
+    }
+
+    const modelReplations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
+    console.log(modelReplations)
+  }
+  getModelRelations()
 
   const closePopUp = () => setPopUp(false);
 
