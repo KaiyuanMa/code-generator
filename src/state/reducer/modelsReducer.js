@@ -38,14 +38,19 @@ const reducer = (state = { models: [] }, action) => {
       return { ...state };
     case "DELETE_ENTRY":
       for (let model of state.models) {
-        if (model.id == action.modelId) {
-          model.entries = model.entries.filter(
-            (entry) => entry.id != action.entryId
+        if (model.id === action.modelId) {
+          const currModel = { ...model };
+          currModel.entries = currModel.entries.filter(
+            (entry) => entry.id !== action.entryId
           );
-          break;
+          const newModels = state.models.filter(
+            (model) => model.id !== action.modelId
+          );
+          console.log(newModels);
+          return { ...state, models: [...newModels, currModel] };
         }
       }
-      return { ...state };
+    // return { ...state };
     case "UPDATE_ENTRY":
       for (let model of state.models) {
         if (model.id == action.modelId) {
