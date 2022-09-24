@@ -65,7 +65,7 @@ function ModelAttribute(prop) {
 
   useEffect(() => {
     inputHelper();
-  }, []);
+  }, [prop]);
 
   return (
     <div className="model-attribute-wrapper">
@@ -113,9 +113,11 @@ function ModelAttribute(prop) {
         </button>
       </div>
       <div className="model-attribute-content" id={`${entryId}-content`}>
-        {entry.validation && entry.validations.map((validation) => (
-          <ModelValidation validation={validation} modelId={modelId} />
-        ))}
+        {entry.validations
+          ? entry.validations.map((validation) => (
+              <ModelValidation validation={validation} modelId={modelId} />
+            ))
+          : null}
         <button onClick={AddValidation}>+</button>
       </div>
     </div>

@@ -121,6 +121,7 @@ const updateModelEntryAC = (modelId, entryId, params) => {
     try {
       await apiUpdateEntry(entryId, params);
       const { data } = await apiGetEntry(entryId);
+      console.log(data);
       dispatch({
         type: "UPDATE_ENTRY",
         modelId: modelId,
