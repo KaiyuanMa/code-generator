@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import JSZip from "jszip";
 import saveAs from "file-saver";
 import { useSelector } from "react-redux";
+import { getDataSetNode } from "../api/node";
+import { getDataSetEdges } from "../api/edge";
 
 const zipFiles = (models, databaseName) => {
 
@@ -81,9 +83,23 @@ const zipFiles = (models, databaseName) => {
 };
 
 export function ZipButton() {
-  const { models } = useSelector((state) => state.models);
-  const [popUp, setPopUp] = useState(false);
-  const [dbName, setDbName] = useState("");
+  const { dataSet } = useSelector(state => state.dataSet)
+  console.log('le state', dataSet)
+
+  const fetchDataSet = async() => {
+    const edges = await getDataSetEdges(dataSet.id)
+    const nodes = await getDataSetNode(dataSet.id)
+
+    
+
+    console.log('edges: ', edges.data)
+    console.log('nodes: ', nodes.data)
+  }
+  fetchDataSet()
+
+  const { models } = useSelector(state => state.models);
+  const [ popUp, setPopUp ] = useState(false);
+  const [ dbName, setDbName ] = useState("");
 
   const closePopUp = () => setPopUp(false);
 

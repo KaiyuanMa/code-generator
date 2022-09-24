@@ -13,7 +13,7 @@ const Validation = conn.define("validation", {
   },
   parameter: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 });
 

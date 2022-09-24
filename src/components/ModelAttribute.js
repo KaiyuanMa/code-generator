@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import {
   deleteModelEntry,
   updateModelEntryAC,
+  addValidation,
 } from "../state/actionCreators/modelsAC";
+import ModelValidation from "./ModelValidation";
 
 function ModelAttribute(prop) {
   const dispatch = useDispatch();
@@ -49,16 +51,21 @@ function ModelAttribute(prop) {
     const entryContent = document.getElementById(`${entryId}-content`);
     entryBtn?.classList?.toggle("model-attribute-expand-btn-active");
     if (entryBtn?.classList?.contains("model-attribute-expand-btn-active")) {
-      entryContent.style.height = "10rem";
+      entryContent.style.maxHeight = entryContent.scrollHeight + "px";
     } else {
-      entryContent.style.height = "0rem";
+      entryContent.style.maxHeight = "0rem";
     }
+  };
+
+  const AddValidation = () => {
+    dispatch(
+      addValidation(modelId, entryId, { name: "test", entryId: entryId })
+    );
   };
 
   useEffect(() => {
     inputHelper();
-  }, []);
-  console.log(entry);
+  }, [prop]);
 
   return (
     <div className="model-attribute-wrapper">
@@ -105,7 +112,14 @@ function ModelAttribute(prop) {
           open
         </button>
       </div>
-      <div className="model-attribute-content" id={`${entryId}-content`}></div>
+      <div className="model-attribute-content" id={`${entryId}-content`}>
+        {entry.validations
+          ? entry.validations.map((validation) => (
+              <ModelValidation validation={validation} modelId={modelId} />
+            ))
+          : null}
+        <button onClick={AddValidation}>+</button>
+      </div>
     </div>
   );
 }

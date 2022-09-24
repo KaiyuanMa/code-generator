@@ -37,6 +37,7 @@ const edgeTypes = { modelEdge: ModelEdge };
 
 function Flow() {
   const { dataSet } = useSelector((state) => state.dataSet);
+  const { models } = useSelector((state) => state.models);
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [newX, setNewX] = useState(200);
@@ -46,7 +47,7 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "d2de11f5-b258-4deb-b5c3-0972132af190";
+  const DataSetId = "90b2c719-3cd2-4c83-8c3f-db5140c7814a";
 
   const deleteNode = (node) => {
     onNodesChange([{ id: node.id, type: "remove" }]);
@@ -91,6 +92,11 @@ function Flow() {
     dispatch(setModelsAC(DataSetId));
     fetchData();
   }, [dataSet]);
+
+  useEffect(() => {
+    console.log(1);
+    fetchData();
+  }, [models]);
 
   //TODO: useCallback ?, check documentation
   const handelClick = () => {

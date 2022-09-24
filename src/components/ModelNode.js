@@ -27,12 +27,12 @@ function ModelNode(props) {
     _setModelName(data);
   };
 
-  useEffect(() => {
-    if (models.length > 1) {
-      model = models.find((model) => model.id == modelId);
-    }
-    inputHelper();
-  }, [models]);
+  // useEffect(() => {
+  //   if (models.length > 1) {
+  //     model = models.find((model) => model.id == modelId);
+  //   }
+  //   inputHelper();
+  // }, [models]);
 
   const handelClick = () => {
     dispatch(addModelEntry({ modelId: modelId }));
@@ -98,7 +98,9 @@ function ModelNode(props) {
           />
         </form>
         {model.entries
-          ? model.entries.map((entry) => <ModelAttribute entry={entry} />)
+          ? model.entries.map((entry) => (
+              <ModelAttribute entry={entry} key={entry.id} />
+            ))
           : null}
         <button
           onClick={() => {

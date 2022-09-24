@@ -11,6 +11,12 @@ import {
   apiUpdateEntry,
   apiGetEntry,
 } from "../../api/entry";
+import {
+  apiDeleteValidation,
+  apiAddValidation,
+  apiUpdateValidation,
+  apiGetValidation,
+} from "../../api/validation";
 
 const setModelsAC = (dataSetId) => {
   return async (dispatch) => {
@@ -115,11 +121,63 @@ const updateModelEntryAC = (modelId, entryId, params) => {
     try {
       await apiUpdateEntry(entryId, params);
       const { data } = await apiGetEntry(entryId);
-      await dispatch({
+      console.log(data);
+      dispatch({
         type: "UPDATE_ENTRY",
         modelId: modelId,
         entryId: entryId,
         entry: data,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+};
+
+//Validation
+const addValidation = (modelId, entryId, params) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await apiAddValidation(params);
+      dispatch({
+        type: "ADD_VALIDATION",
+        modelId: modelId,
+        entryId: entryId,
+        validation: data,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+};
+
+const deleteValidation = (modelId, entryId, validationId) => {
+  return async (dispatch) => {
+    try {
+      await apiDeleteValidation(validationId);
+      dispatch({
+        type: "DELETE_VALIDATION",
+        modelId: modelId,
+        entryId: entryId,
+        validationId: validationId,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+};
+
+const updateValidation = (modelId, entryId, validationId, params) => {
+  return async (dispatch) => {
+    try {
+      await apiUpdateValidation(validationId, params);
+      const { data } = await apiGetValidation(validationId);
+      dispatch({
+        type: "UPDATE_VALIDATION",
+        modelId: modelId,
+        entryId: entryId,
+        validationId: validationId,
+        validation: data,
       });
     } catch (ex) {
       console.log(ex);
@@ -136,4 +194,7 @@ export {
   addModelEntry,
   deleteModelEntry,
   updateModelEntryAC,
+  addValidation,
+  deleteValidation,
+  updateValidation,
 };

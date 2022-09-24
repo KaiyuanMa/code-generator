@@ -38,20 +38,69 @@ const reducer = (state = { models: [] }, action) => {
       return { ...state };
     case "DELETE_ENTRY":
       for (let model of state.models) {
-        if (model.id == action.modelId) {
-          model.entries = model.entries.filter(
-            (entry) => entry.id != action.entryId
+        if (model.id === action.modelId) {
+          const currModel = { ...model };
+          currModel.entries = currModel.entries.filter(
+            (entry) => entry.id !== action.entryId
           );
-          break;
+          const newModels = state.models.filter(
+            (model) => model.id !== action.modelId
+          );
+          console.log(newModels);
+          return { ...state, models: [...newModels, currModel] };
         }
       }
-      return { ...state };
+    // return { ...state };
     case "UPDATE_ENTRY":
       for (let model of state.models) {
         if (model.id == action.modelId) {
           for (let entry of model.entries) {
             if (entry.id == action.entryId) {
               entry = action.entry;
+              break;
+            }
+          }
+        }
+      }
+      return { ...state };
+    //Validation
+    case "ADD_VALIDATION":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          for (let entry of model.entries) {
+            if (entry.id == action.entryId) {
+              entry.validations = [...entry.validations, action.validation];
+              break;
+            }
+          }
+        }
+      }
+      return { ...state };
+    case "DELETE_VALIDATION":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          for (let entry of model.entries) {
+            if (entry.id == action.entryId) {
+              entry.validations = entry.validations.filter(
+                (validation) => validation.id != action.validationId
+              );
+              break;
+            }
+          }
+        }
+      }
+      return { ...state };
+    case "UPDATE_VALIDATION":
+      for (let model of state.models) {
+        if (model.id == action.modelId) {
+          for (let entry of model.entries) {
+            if (entry.id == action.entryId) {
+              for (let validation of entry.validations) {
+                if (validation.id == action.validationId) {
+                  validation = action.validation;
+                  break;
+                }
+              }
             }
           }
         }
