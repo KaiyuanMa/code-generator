@@ -113,7 +113,7 @@ function ModelAttribute(prop) {
         </button>
       </div>
       <div className="model-attribute-content" id={`${entryId}-content`}>
-        {entry.validations.map((validation) => (
+        {entry.validation && entry.validations.map((validation) => (
           <ModelValidation validation={validation} modelId={modelId} />
         ))}
         <button onClick={AddValidation}>+</button>
