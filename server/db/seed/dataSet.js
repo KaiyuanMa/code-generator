@@ -8,6 +8,10 @@ const createAndSeedDataSet = async (users) => {
         userId: users[0].dataValues.id,
       },
       {
+        name: "fooDataSet2",
+        userId: users[0].dataValues.id,
+      },
+      {
         name: "barDataSet",
         userId: users[1].id,
       },

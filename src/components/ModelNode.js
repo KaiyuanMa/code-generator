@@ -13,19 +13,22 @@ import { apiDeleteNode } from "../api/node";
 function ModelNode(props) {
   const dispatch = useDispatch();
   const { models } = useSelector((state) => state.models);
-  const data = props.data;
-  let model = {};
-  const modelId = data.modelId;
-
-  if (models.length > 1) {
-    model = models.find((model) => model.id == modelId);
-  }
-  const [modelName, _setModelName] = useState(model.name);
+  const [model, setModel] = useState({});
+  const [modelName, _setModelName] = useState("");
   const modelNameRef = useRef(modelName);
   const setModelName = (data) => {
     modelNameRef.current = data;
     _setModelName(data);
   };
+  const data = props.data;
+  const modelId = data.modelId;
+
+  useEffect(() => {
+    const currModel = models.find((model) => model.id == modelId);
+    setModel(currModel);
+    setModelName(currModel.name);
+    inputHelper();
+  }, [props]);
 
   // useEffect(() => {
   //   if (models.length > 1) {

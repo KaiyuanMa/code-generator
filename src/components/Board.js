@@ -18,10 +18,10 @@ import {
   setModelsAC,
   deleteModelAC,
   addModelEntry,
-  setDataSetAC
+  setDataSetAC,
 } from "../state/actionCreators/modelsAC";
 import { ZipButton } from "./zip";
-import DeleteButton from './DataSetDelete';
+import DeleteButton from "./DataSetDelete";
 import { apiAddModel } from "../api/model";
 import { apiAddNode, apiDeleteNode, apiUpdateNode } from "../api/node";
 import { apiAddEdge, apiDeleteEdgeByNode } from "../api/edge";
@@ -39,8 +39,8 @@ const edgeTypes = { modelEdge: ModelEdge };
 function Flow() {
   const { dataSet } = useSelector((state) => state.dataSet);
   const { models } = useSelector((state) => state.models);
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
+  const [nodes, setNodes] = useState(null);
+  const [edges, setEdges] = useState(null);
   const [newX, setNewX] = useState(200);
   const [newY, setNewY] = useState(200);
   const defaultEdgeOptions = { animated: true };
@@ -67,36 +67,39 @@ function Flow() {
   };
 
   const fetchData = async () => {
-    let response = await getDataSetEdges(DataSetId);
-    const edgeDummy = [];
-    for (let edge of response.data) {
-      edge.markerEnd = {
-        type: MarkerType.ArrowClosed,
-      };
-      edgeDummy.push(edge);
-    }
-    setEdges(edgeDummy);
-    response = await getDataSetNode(DataSetId);
+    const nodeResponse = await getDataSetNode(DataSetId);
     const nodeDummy = [];
-    for (let node of response.data) {
-      const curr = {};
-      curr.id = node.id;
-      curr.type = node.type;
-      curr.dragHandle = ".model-node-header";
-      curr.position = { x: node.positionX, y: node.positionY };
-      curr.data = { modelId: node.modelId, deleteNode };
-      nodeDummy.push(curr);
+    if (nodeResponse.data.length > 0) {
+      for (let node of nodeResponse.data) {
+        const curr = {};
+        curr.id = node.id;
+        curr.type = node.type;
+        curr.dragHandle = ".model-node-header";
+        curr.position = { x: node.positionX, y: node.positionY };
+        curr.data = { modelId: node.modelId, deleteNode };
+        nodeDummy.push(curr);
+      }
+    }
+    const response = await getDataSetEdges(DataSetId);
+    const edgeDummy = [];
+    if (response.data.length > 0) {
+      for (let edge of response.data) {
+        edge.markerEnd = {
+          type: MarkerType.ArrowClosed,
+        };
+        edgeDummy.push(edge);
+      }
     }
     setNodes(nodeDummy);
+    setEdges(edgeDummy);
   };
 
   useEffect(() => {
-    dispatch(setModelsAC(DataSetId));
     fetchData();
+    dispatch(setModelsAC(DataSetId));
   }, [dataSet]);
 
   useEffect(() => {
-    // console.log(1);
     fetchData();
   }, [models]);
 
@@ -108,7 +111,6 @@ function Flow() {
         dataSetId: DataSetId,
       });
       dispatch(addModelAC(data));
-      console.log(data);
       const response = await apiAddNode({
         modelId: data.id,
         dataSetId: DataSetId,
@@ -144,7 +146,6 @@ function Flow() {
     setNodes((ns) => applyNodeChanges(changes, ns));
   }, []);
   const onEdgesChange = useCallback((changes) => {
-    console.log(changes);
     setEdges((es) => applyEdgeChanges(changes, es));
     const deleteEdge = async (changeId) => {
       const idA = changeId.slice(16, 52);
@@ -152,7 +153,6 @@ function Flow() {
       await apiDeleteEdgeByNode(idA, idB);
     };
     for (let change of changes) {
-      console.log(change);
       if (change.type == "remove") {
         deleteEdge(change.id);
       }
@@ -196,8 +196,7 @@ function Flow() {
     updateNode();
   };
 
-  //
-  return nodes.length > 1 ? (
+  return nodes ? (
     <div className="react-flow-wrapper">
       <ZipButton />
       <DeleteButton />
