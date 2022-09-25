@@ -46,9 +46,6 @@ function Flow() {
   const defaultEdgeOptions = { animated: true };
   const dispatch = useDispatch();
 
-  //put fooDataSetId in here, only for testing
-
-  // const DataSetId = "90b2c719-3cd2-4c83-8c3f-db5140c7814a";
   const DataSetId = dataSet.id;
 
   const deleteNode = (node) => {
