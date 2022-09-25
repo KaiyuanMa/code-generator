@@ -23,7 +23,7 @@ const getDataSetModels = (dataSetId) => {
 //DELETE
 
 const deleteDataSet = (dataSetId) => {
-  return axios.post(`/api/dataSet/${dataSetId}`, token);
+  return axios.delete(`/api/dataSet/${dataSetId}`, token);
 };
 
 //POST
