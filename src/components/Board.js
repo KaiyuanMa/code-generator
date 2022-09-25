@@ -18,6 +18,7 @@ import {
   setModelsAC,
   deleteModelAC,
   addModelEntry,
+  setDataSetAC
 } from "../state/actionCreators/modelsAC";
 import { ZipButton } from "./zip";
 import DeleteButton from './DataSetDelete';
@@ -47,7 +48,8 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "90b2c719-3cd2-4c83-8c3f-db5140c7814a";
+  // const DataSetId = "90b2c719-3cd2-4c83-8c3f-db5140c7814a";
+  const DataSetId = dataSet.id;
 
   const deleteNode = (node) => {
     onNodesChange([{ id: node.id, type: "remove" }]);
