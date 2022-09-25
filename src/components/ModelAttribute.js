@@ -75,7 +75,11 @@ function ModelAttribute(prop) {
     }
   }, [prop, models]);
 
-  useEffect(() => {});
+  const buttonUpdate = (property) => {
+    const params = {};
+    params[property] = !entry[property];
+    dispatch(updateModelEntryAC(modelId, entryId, params));
+  };
 
   return (
     <div className="model-attribute-wrapper">
@@ -98,13 +102,37 @@ function ModelAttribute(prop) {
           <div className="model-attribute-header-btns">
             {name == "id" ? (
               <div>
-                <button>autoIncrement</button>
-                <button>primaryKey</button>
+                <button
+                  onClick={() => {
+                    buttonUpdate("autoIncrement");
+                  }}
+                >
+                  autoIncrement
+                </button>
+                <button
+                  onClick={() => {
+                    buttonUpdate("primaryKey");
+                  }}
+                >
+                  primaryKey
+                </button>
               </div>
             ) : (
               <div>
-                <button>unique</button>
-                <button>allowNull</button>
+                <button
+                  onClick={() => {
+                    buttonUpdate("unique");
+                  }}
+                >
+                  unique
+                </button>
+                <button
+                  onClick={() => {
+                    buttonUpdate("allowNull");
+                  }}
+                >
+                  allowNull
+                </button>
               </div>
             )}
             <button
