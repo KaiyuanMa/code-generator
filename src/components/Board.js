@@ -96,7 +96,7 @@ function Flow() {
   }, [dataSet]);
 
   useEffect(() => {
-    console.log(1);
+    // console.log(1);
     fetchData();
   }, [models]);
 
