@@ -21,9 +21,11 @@ const Entry = conn.define("entry", {
   },
   unique: {
     type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
   allowNull: {
     type: Sequelize.BOOLEAN,
+    defaultValue: true,
   },
   primaryKey: {
     type: Sequelize.BOOLEAN,

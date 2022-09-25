@@ -195,8 +195,6 @@ function Flow() {
 
   return nodes ? (
     <div className="react-flow-wrapper">
-      <ZipButton />
-      <DeleteButton />
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -215,6 +213,8 @@ function Flow() {
         <Controls />
         <Background variant="dots" gap={20} />
         <div className="model_controls">
+          <ZipButton />
+          <DeleteButton />
           <button className="add_model" onClick={handelClick}>
             +
           </button>

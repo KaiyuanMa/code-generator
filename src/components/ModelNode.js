@@ -28,7 +28,7 @@ function ModelNode(props) {
     setModel(currModel);
     setModelName(currModel.name);
     inputHelper();
-  }, [props]);
+  }, [models]);
 
   // useEffect(() => {
   //   if (models.length > 1) {
@@ -78,6 +78,21 @@ function ModelNode(props) {
     data.deleteNode(props);
   };
 
+  let ht = [];
+  const test = () => {
+    if (model.entries) {
+      ht = model.entries.map((entry) => (
+        <ModelAttribute entry={entry} key={entry.id} />
+      ));
+    }
+  };
+
+  useEffect(() => {
+    test();
+  }, [models]);
+
+  test();
+
   return models.length > 0 ? (
     <div className="model-node">
       <Handle type="target" position={Position.Top} />
@@ -100,11 +115,7 @@ function ModelNode(props) {
             onChange={(ev) => setModelName(ev.target.value)}
           />
         </form>
-        {model.entries
-          ? model.entries.map((entry) => (
-              <ModelAttribute entry={entry} key={entry.id} />
-            ))
-          : null}
+        {ht}
         <button
           onClick={() => {
             handelClick();
