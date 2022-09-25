@@ -46,7 +46,7 @@ function Flow() {
 
   //put fooDataSetId in here, only for testing
 
-  const DataSetId = "4931bdff-14b2-4c10-9030-46791f678f38";
+  const DataSetId = "1a3fd529-b9bc-43ec-aca0-003ce891597f";
 
   const deleteNode = (node) => {
     onNodesChange([{ id: node.id, type: "remove" }]);
@@ -93,7 +93,7 @@ function Flow() {
   }, [dataSet]);
 
   useEffect(() => {
-    console.log(1);
+    // console.log(1);
     fetchData();
   }, [models]);
 
