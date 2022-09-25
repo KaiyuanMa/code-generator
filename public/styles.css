@@ -87,7 +87,7 @@
 
 .toggle {
   position: absolute;
-  right: -14px;
+  right: -15px;
   height: 1.5rem;
   transform: rotate(-90deg);
   z-index: 99;
