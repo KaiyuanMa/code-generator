@@ -91,9 +91,8 @@
 
 // export default connect(mapState, mapDispatch)(UserPage);
 
-
 import React, { Component } from "react";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import { addDataSet, getDataSets } from "../api/dataSet";
 import { addDataSetAC, setDataSetAC } from "../state/actionCreators/dataSetAC";
 import { exchangeToken, logout } from "../state/auth";
@@ -103,25 +102,26 @@ class UserPage extends Component {
     super();
     this.state = {
       dataSets: [],
-      term: ''
-    }
+      term: "",
+    };
     this.createDataSet = this.createDataSet.bind(this);
   }
   async componentDidMount() {
     const response = await getDataSets();
-    this.setState({ dataSets: response.data })
+    this.setState({ dataSets: response.data });
   }
   async componentDidUpdate(prevProps) {
-    if(prevProps.dataSet.dataSet.id !== this.props.dataSet.dataSet.id) {
+    if (prevProps.dataSet.dataSet.id !== this.props.dataSet.dataSet.id) {
       const response = await getDataSets();
-      this.setState({ dataSets: response.data })
+      this.setState({ dataSets: response.data });
     }
   }
   createDataSet() {
     const dataSet = {
       name: `${this.props.auth.username}DataSet`,
-      userId: this.props.auth.id
-    }
+      userId: this.props.auth.id,
+    };
+    console.log(dataSet);
     this.props.addDataSet(dataSet);
   }
   render() {
@@ -129,44 +129,55 @@ class UserPage extends Component {
     const { auth, logout, setDataSet } = this.props;
     const { createDataSet } = this;
 
-    const searchResult = dataSets.filter(dataSet => dataSet.name.toLowerCase().includes(term.toLowerCase()))
+    const searchResult = dataSets.filter((dataSet) =>
+      dataSet.name.toLowerCase().includes(term.toLowerCase())
+    );
 
     return (
       <>
-          <div className='side-bar-header'>
-            <h2>Hello { auth.username }</h2>
-            <button onClick={ logout } style={{ height: '1.5rem' }}>Logout</button>
-          </div>
-          <input placeholder='Search for Dataset' onChange={ ev => this.setState({ term: ev.target.value })} />
-          <ul>
-              <li><button onClick={ createDataSet }><span style={{ fontSize: '2rem' }}>+</span></button></li>
-              {
-                searchResult.map(dataSet => {
-                  const { id, name } = dataSet
-                  return (
-                    <li key={ id }>
-                      <button onClick={ () => setDataSet(id) }><span>{ name }</span></button>
-                    </li>
-                  )
-                })
-              }
-          </ul>
+        <div className="side-bar-header">
+          <h2>Hello {auth.username}</h2>
+          <button onClick={logout} style={{ height: "1.5rem" }}>
+            Logout
+          </button>
+        </div>
+        <input
+          placeholder="Search for Dataset"
+          onChange={(ev) => this.setState({ term: ev.target.value })}
+        />
+        <ul>
+          <li>
+            <button onClick={createDataSet}>
+              <span style={{ fontSize: "2rem" }}>+</span>
+            </button>
+          </li>
+          {searchResult.map((dataSet) => {
+            const { id, name } = dataSet;
+            return (
+              <li key={id}>
+                <button onClick={() => setDataSet(id)}>
+                  <span>{name}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </>
     );
   }
 }
 
-const mapState = state => {
-  return state
-}
+const mapState = (state) => {
+  return state;
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    exchangeToken: ()=> dispatch(exchangeToken()),
-    logout: ()=> dispatch(logout()),
-    setDataSet: (id)=> dispatch(setDataSetAC(id)),
-    addDataSet: (dataSet)=> dispatch(addDataSetAC(dataSet))
-  }
-}
+    exchangeToken: () => dispatch(exchangeToken()),
+    logout: () => dispatch(logout()),
+    setDataSet: (id) => dispatch(setDataSetAC(id)),
+    addDataSet: (dataSet) => dispatch(addDataSetAC(dataSet)),
+  };
+};
 
 export default connect(mapState, mapDispatch)(UserPage);

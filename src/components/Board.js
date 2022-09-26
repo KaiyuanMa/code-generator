@@ -92,12 +92,16 @@ function Flow() {
   };
 
   useEffect(() => {
-    fetchData();
-    dispatch(setModelsAC(DataSetId));
+    if (dataSet.id) {
+      fetchData();
+      dispatch(setModelsAC(DataSetId));
+    }
   }, [dataSet]);
 
   useEffect(() => {
-    fetchData();
+    if (dataSet.id) {
+      fetchData();
+    }
   }, [models]);
 
   //TODO: useCallback ?, check documentation
