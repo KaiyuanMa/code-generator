@@ -31,7 +31,7 @@ function ModelNode(props) {
     setModel(currModel);
     setModelName(currModel.name);
     inputHelper();
-  }, [models]);
+  }, [props]);
 
   // useEffect(() => {
   //   if (models.length > 1) {
