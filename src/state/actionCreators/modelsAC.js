@@ -74,6 +74,7 @@ const editModelAC = (modelId, params) => {
     try {
       await updateModel(modelId, params);
       const { data } = await getModel(modelId);
+      console.log(data);
       dispatch({
         type: "UPDATE_MODEL",
         modelId: modelId,
@@ -135,7 +136,7 @@ const updateModelEntryAC = (modelId, entryId, params) => {
 };
 
 //Validation
-const addValidation = (modelId, entryId, params) => {
+const addValidationAC = (modelId, entryId, params) => {
   return async (dispatch) => {
     try {
       const { data } = await apiAddValidation(params);
@@ -194,7 +195,7 @@ export {
   addModelEntry,
   deleteModelEntry,
   updateModelEntryAC,
-  addValidation,
+  addValidationAC,
   deleteValidation,
   updateValidation,
 };

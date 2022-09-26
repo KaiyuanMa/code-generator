@@ -3,9 +3,9 @@ const reducer = (state = { models: [] }, action) => {
     case "SET_MODELS":
       return { ...state, models: action.models };
     case "SET_MODEL":
-      for (let model of state.models) {
-        if (model.id == action.modelId) {
-          model = action.model;
+      for (let i = 0; i < state.models.length; i++) {
+        if (state.models[i].id == action.modelId) {
+          state.models[i] = action.model;
           break;
         }
       }
@@ -19,9 +19,10 @@ const reducer = (state = { models: [] }, action) => {
         models: dummy,
       };
     case "UPDATE_MODEL":
-      for (let model of state.models) {
-        if (model.id == action.modelId) {
-          model = action.model;
+      for (let i = 0; i < state.models.length; i++) {
+        if (state.models[i].id == action.modelId) {
+          state.models[i] = action.model;
+          break;
         }
       }
       return state;
@@ -72,7 +73,9 @@ const reducer = (state = { models: [] }, action) => {
         if (model.id == action.modelId) {
           for (let entry of model.entries) {
             if (entry.id == action.entryId) {
-              entry.validations = [...entry.validations, action.validation];
+              if (entry.validations) {
+                entry.validations = [...entry.validations, action.validation];
+              } else entry.validations = [action.validation];
               break;
             }
           }
