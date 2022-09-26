@@ -6,12 +6,12 @@ const createAndSeedDataSet = async (users) => {
       {
         name: "fooDataSet",
         userId: users[0].dataValues.id,
-        isRecent: true,
+        isRecent: false,
       },
       {
         name: "fooDataSet2",
         userId: users[0].dataValues.id,
-        isRecent: false,
+        isRecent: true,
       },
       {
         name: "barDataSet",
