@@ -6,18 +6,22 @@ const createAndSeedDataSet = async (users) => {
       {
         name: "fooDataSet",
         userId: users[0].dataValues.id,
+        isRecent: true,
       },
       {
         name: "fooDataSet2",
         userId: users[0].dataValues.id,
+        isRecent: false,
       },
       {
         name: "barDataSet",
         userId: users[1].id,
+        isRecent: false,
       },
       {
         name: "markDataSet",
         userId: users[2].id,
+        isRecent: false,
       },
     ];
     const dataSets = await Promise.all(

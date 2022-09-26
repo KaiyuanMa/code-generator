@@ -16,6 +16,10 @@ const getDataSet = (dataSetId) => {
   return axios.get(`/api/dataSet/${dataSetId}`, token);
 };
 
+const apiGetRecentDataSet = () => {
+  return axios.get("/api/dataSet/recent/dataset", token);
+};
+
 const getDataSetModels = (dataSetId) => {
   return axios.get(`/api/dataSet/${dataSetId}/model`, token);
 };
@@ -41,6 +45,7 @@ const updateDataSet = (dataSetId, params) => {
 export {
   getDataSets,
   getDataSetModels,
+  apiGetRecentDataSet,
   getDataSet,
   addDataSet,
   deleteDataSet,

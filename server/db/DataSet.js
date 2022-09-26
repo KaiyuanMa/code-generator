@@ -11,6 +11,10 @@ const DataSet = conn.define("dataSet", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  isRecent: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+  },
 });
 
 module.exports = DataSet;
