@@ -160,6 +160,18 @@
   overflow: hidden;
 }
 
+.model-type-form {
+  display: flex;
+  position: relative;
+}
+
+.model-type-select {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  width: 17px;
+}
+
 /* ModelValidation */
 .model-validation-list-item {
   display: flex;

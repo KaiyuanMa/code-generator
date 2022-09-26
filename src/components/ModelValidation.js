@@ -48,8 +48,6 @@ function ModelValidation(prop) {
     updateValidationParams();
   };
 
-  const handelDelete = () => {};
-
   useEffect(() => {
     inputHelper();
   }, []);
