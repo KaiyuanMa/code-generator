@@ -30,13 +30,6 @@ function ModelNode(props) {
     inputHelper();
   }, [props]);
 
-  // useEffect(() => {
-  //   if (models.length > 1) {
-  //     model = models.find((model) => model.id == modelId);
-  //   }
-  //   inputHelper();
-  // }, [models]);
-
   const handelClick = () => {
     dispatch(addModelEntry({ modelId: modelId }));
   };
@@ -78,21 +71,6 @@ function ModelNode(props) {
     data.deleteNode(props);
   };
 
-  let ht = [];
-  const test = () => {
-    if (model.entries) {
-      ht = model.entries.map((entry) => (
-        <ModelAttribute entry={entry} key={entry.id} />
-      ));
-    }
-  };
-
-  useEffect(() => {
-    test();
-  }, [models]);
-
-  test();
-
   return models.length > 0 ? (
     <div className="model-node">
       <Handle type="target" position={Position.Top} />
@@ -115,7 +93,11 @@ function ModelNode(props) {
             onChange={(ev) => setModelName(ev.target.value)}
           />
         </form>
-        {ht}
+        {model.entries
+          ? model.entries.map((entry) => (
+              <ModelAttribute entry={entry} key={entry.id} />
+            ))
+          : null}
         <button
           onClick={() => {
             handelClick();

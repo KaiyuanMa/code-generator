@@ -7,7 +7,11 @@ const { Entry, Validation, DataSet, Model } = require("../db");
 
 router.get("/:entryId", isLoggedIn, haveAccess, async (req, res, next) => {
   try {
-    res.send(await Entry.findByPk(req.params.entryId));
+    res.send(
+      await Entry.findByPk(req.params.entryId, {
+        include: Validation,
+      })
+    );
   } catch (ex) {
     next(ex);
   }

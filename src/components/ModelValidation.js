@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { updateValidation } from "../state/actionCreators/modelsAC";
+import {
+  deleteValidation,
+  updateValidation,
+} from "../state/actionCreators/modelsAC";
 
 function ModelValidation(prop) {
   const dispatch = useDispatch();
@@ -45,6 +48,8 @@ function ModelValidation(prop) {
     updateValidationParams();
   };
 
+  const handelDelete = () => {};
+
   useEffect(() => {
     inputHelper();
   }, []);
@@ -60,6 +65,13 @@ function ModelValidation(prop) {
           disabled={true}
         />
       </form>
+      <button
+        onClick={() =>
+          dispatch(deleteValidation(modelId, entryId, validation.id))
+        }
+      >
+        X
+      </button>
     </div>
   );
 }
