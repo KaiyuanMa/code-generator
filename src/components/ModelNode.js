@@ -24,7 +24,10 @@ function ModelNode(props) {
   const modelId = data.modelId;
 
   useEffect(() => {
+    console.log(models);
+    console.log(props);
     const currModel = models.find((model) => model.id == modelId);
+
     setModel(currModel);
     setModelName(currModel.name);
     inputHelper();
