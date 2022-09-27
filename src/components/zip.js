@@ -5,21 +5,80 @@ import { useSelector } from "react-redux";
 import { getDataSetNode } from "../api/node";
 import { getDataSetEdges } from "../api/edge";
 import { getDataSetModels } from '../api/dataSet'
-const zipFiles = (models, databaseName) => {
+
+
+const zipFiles = async(models, databaseName) => {
 
   const getName = (model) =>
     models.filter((m) => m.id === model.modelId)[0].name;
+
+  // const getModelRelations = async() => {
+  //   try {
+  //     const datatsetId = models[0].dataSetId
+  
+  //     const [edges, nodes, datasetModels ] = await Promise.all ([
+  //       (await getDataSetEdges(datatsetId)).data,
+  //       (await getDataSetNode(datatsetId)).data,
+  //       (await getDataSetModels(datatsetId)).data
+  //     ])
+  
+  //     const getModelName = (id) => {
+  //       const model = datasetModels.filter( model => model.id === id)[0]
+  //       return model.name
+  //     }
+      
+  //     const getModelId = (id) => {
+  //       const node = nodes.filter( node => id === node.id)[0]
+  //       return getModelName(node.modelId)
+  //     }
+  
+  //     const modelRelations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
+  //     console.log('model relations ', modelRelations)
+  //     return await modelRelations
+  //   }
+  //   catch(err) {
+  //     console.log(err)
+  //   }
+  // }
+  
+  const getModelRelations = () => {
+    return new Promise( async(res)=> {
+      const datatsetId = models[0].dataSetId
+      const [edges, nodes, datasetModels ] = await Promise.all ([
+        (await getDataSetEdges(datatsetId)).data,
+        (await getDataSetNode(datatsetId)).data,
+        (await getDataSetModels(datatsetId)).data
+      ])
+  
+      const getModelName = (id) => {
+        const model = datasetModels.filter( model => model.id === id)[0]
+        return model.name
+      }
+      
+      const getModelId = (id) => {
+        const node = nodes.filter( node => id === node.id)[0]
+        return getModelName(node.modelId)
+      }
+  
+      const modelRelations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
+      console.log('model relations ', modelRelations)
+
+      if(modelRelations) return res(modelRelations)
+
+    }).then((modelRelations)=> {
+      console.log('promise success return modelrelations', modelRelations)
+      return modelRelations
+    })
+  }
 
   const printModelEntries = model => {
     const defaultEntries = ['id', 'modelId', 'createdAt', 'updatedAt', 'validations']
     const entries = model.entries.map(entry => {
       const toup = Object.entries(entry)
-
       const filterEntries = toup.filter( key_val => key_val[1] && !defaultEntries.includes(key_val[0]))
       const printableEntries = filterEntries.map( e => `\n  ${e[0]}: ${e[1]}`)
       return printableEntries
     })
-    console.log(entries)
     return entries
   }
 
@@ -35,12 +94,22 @@ const zipFiles = (models, databaseName) => {
     (model) => `\n${model.name}.${model.connectionType}(${getName(model)})`
   );
   const modelExports = modelNames.map((modelName) => `  ${modelName},\n`);
+  // console.log('loabel realtion ', modelLabelRelations)
+  
+  const modelR = async() => {
+    const result = await getModelRelations()
+    console.log(result)
+    return result
+  }
+  
+  const exportModelR = await modelR()
+  console.log(typeof exportModelR)
 
   // Blobs
   const indexBlob = new Blob([
     'const conn = require("./conn");\n',
     ...modelImports,
-    ...printConnections,
+    ...exportModelR,
     `\n\nmodule.exports = {\n  conn,\n`,
     ...modelExports,
     `};\n`,
@@ -88,26 +157,33 @@ export function ZipButton() {
   const [ popUp, setPopUp ] = useState(false);
   const [ dbName, setDbName ] = useState("");
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   const getModelRelations = async() => {
     const edges = (await getDataSetEdges(dataSet.id)).data
     const nodes = (await getDataSetNode(dataSet.id)).data    
     const models = (await getDataSetModels(dataSet.id)).data
+=======
+  // const getModelRelations = async() => {
+  //   const edges = (await getDataSetEdges(dataSet.id)).data
+  //   const nodes = (await getDataSetNode(dataSet.id)).data    
+  //   const models = (await getDataSetModels(dataSet.id)).data
+>>>>>>> ff6e25f7db4d922d92ae1d4841de4bd8e1625aa0
 
-    const getModelName = (id) => {
-      const model = models.filter( model => model.id === id)[0]
-      return model.name
-    }
+  //   const getModelName = (id) => {
+  //     const model = models.filter( model => model.id === id)[0]
+  //     return model.name
+  //   }
     
-    const getModelId = (id) => {
-      const node = nodes.filter( node => id === node.id)[0]
-      return getModelName(node.modelId)
-    }
+  //   const getModelId = (id) => {
+  //     const node = nodes.filter( node => id === node.id)[0]
+  //     return getModelName(node.modelId)
+  //   }
 
-    const modelReplations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
-    console.log(modelReplations)
-  }
-  getModelRelations()
+  //   const modelReplations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
+  //   console.log(modelReplations)
+  // }
+  // getModelRelations()
 
 =======
 >>>>>>> Stashed changes

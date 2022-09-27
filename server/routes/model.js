@@ -7,7 +7,17 @@ const { Model, Entry, Validation, DataSet } = require("../db");
 
 router.get("/:modelId", isLoggedIn, haveAccess, async (req, res, next) => {
   try {
-    res.send(await Model.findByPk(req.params.modelId));
+    res.send(
+      await Model.findByPk(req.params.modelId, {
+        include: [
+          {
+            model: Entry,
+            include: Validation,
+          },
+        ],
+        order: [[Entry, "createdAt"]],
+      })
+    );
   } catch (ex) {
     next(ex);
   }

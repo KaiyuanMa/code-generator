@@ -11,25 +11,40 @@ router.post("/", async (req, res, next) => {
       username: req.body.username,
       password: req.body.password,
     };
-    const user = await User.findOne({
-      where: {
-        username: credentials.username,
-      },
-    });
-    if (user && (await bcrypt.compare(credentials.password, user.password))) {
-      res.send(jwt.sign({ id: user.id }, process.env.JWT));
-    } else {
-      const error = new Error("Bad Credentials");
-      error.status = 401;
-      throw error;
-    }
+    res.send({ token: await User.authenticate(credentials) });
   } catch (ex) {
     next(ex);
   }
 });
 
+
 router.get("/", isLoggedIn, async (req, res, next) => {
   res.send(req.user);
+});
+router.post("/signup", async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      where: {
+        username: req.body.username,
+      },
+    });
+    if (users.length === 0) {
+      await User.create(req.body);
+      const credentials = {
+        username: req.body.username,
+        password: req.body.password,
+      };
+      res.send({ token: await User.authenticate(credentials)})
+    } else {
+      const credentials = {
+        username: req.body.username,
+        password: req.body.password,
+      };
+      res.send({ token: await User.authenticate(credentials) });
+    }
+  } catch (er) {
+    next(er);
+  }
 });
 
 module.exports = router;

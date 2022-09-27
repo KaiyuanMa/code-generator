@@ -87,7 +87,7 @@
 
 .toggle {
   position: absolute;
-  right: -14px;
+  right: -15px;
   height: 1.5rem;
   transform: rotate(-90deg);
   z-index: 99;
@@ -160,7 +160,31 @@
   overflow: hidden;
 }
 
+.model-type-form {
+  display: flex;
+  position: relative;
+}
+
+.model-type-select {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  width: 17px;
+}
+
 /* ModelValidation */
 .model-validation-list-item {
   display: flex;
+}
+label , input{
+  display: block;
+}
+input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
 }

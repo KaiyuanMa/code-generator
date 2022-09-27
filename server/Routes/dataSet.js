@@ -20,6 +20,18 @@ router.get("/:dataSetId", isLoggedIn, haveAccess, async (req, res, next) => {
   }
 });
 
+router.get("/recent/dataset", isLoggedIn, async (req, res, next) => {
+  try {
+    res.send(
+      await DataSet.findOne({
+        where: { isRecent: true, userId: req.user.id },
+      })
+    );
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 router.get(
   "/:dataSetId/model",
   isLoggedIn,
@@ -61,6 +73,7 @@ router.delete("/:dataSetId", isLoggedIn, haveAccess, async (req, res, next) => {
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     if (req.body.userId !== req.user.id) throw "Wrong User";
+    console.log(1);
     res.status(201).send(await DataSet.create(req.body));
   } catch (ex) {
     next(ex);

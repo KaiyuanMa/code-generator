@@ -5,11 +5,10 @@ import {
   updateDataSet,
 } from "../../api/dataSet";
 
-const setDataSetAC = (dataSetId) => {
+const setDataSetAC = (dataSetId, oldDataSetId) => {
   return async (dispatch) => {
     try {
       const response = await getDataSet(dataSetId);
-      console.log(response);
       dispatch({
         type: "SET_DATASET",
         dataSet: response.data,
