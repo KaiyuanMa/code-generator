@@ -39,8 +39,8 @@ const edgeTypes = { modelEdge: ModelEdge };
 function Flow() {
   const { dataSet } = useSelector((state) => state.dataSet);
   const { models } = useSelector((state) => state.models);
-  const [nodes, setNodes] = useState(null);
-  const [edges, setEdges] = useState(null);
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
   const [newX, setNewX] = useState(200);
   const [newY, setNewY] = useState(200);
   const defaultEdgeOptions = { animated: true };

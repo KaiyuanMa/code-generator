@@ -36,9 +36,11 @@ User.addHook("beforeSave", async (user) => {
 });
 
 User.findByToken = async function findByToken(token) {
+  console.log("token" + token);
   try {
     const id = jwt.verify(token, process.env.JWT).id;
     const user = await User.findByPk(id);
+    console.log("1");
     if (!user) {
       throw "error";
     }
@@ -59,7 +61,7 @@ User.authenticate = async function (credentials) {
   if (user && (await bcrypt.compare(credentials.password, user.password))) {
     return jwt.sign({ id: user.id }, process.env.JWT);
   }
-  const error = new Error('Bad Credentials');
+  const error = new Error("Bad Credentials");
   error.status = 401;
   throw error;
 };
