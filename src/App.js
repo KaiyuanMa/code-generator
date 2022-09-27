@@ -24,7 +24,6 @@ function App() {
     }
   };
   useEffect(() => {
-    testSignIn();
     getRecentDataSet();
   }, [auth]);
   const getRecentDataSet = async () => {
