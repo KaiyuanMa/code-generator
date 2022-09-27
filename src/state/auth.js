@@ -58,3 +58,19 @@ export default function(state = {}, action) {
       return state
   }
 }
+export const signup = (userInfo, history) => {
+  return async (dispatch) => {
+    const response = await axios.post('/api/session/signup', userInfo);
+    const { token } = response.data;
+    window.localStorage.setItem('token', token);
+    const auth = (
+      await axios.get('/api/session', {
+        headers: {
+          authorization: token,
+        },
+      })
+    ).data;
+    dispatch(setAuth(auth));
+    
+  };
+};

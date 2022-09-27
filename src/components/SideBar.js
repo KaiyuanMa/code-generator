@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { getDataSets } from "../api/dataSet";
 import { exchangeToken, logout } from "../state/auth";
 import UserPage from "./UserPage";
+import Login from "./Login";
+import Signup from "./Signup";
+import UserControl from "./UserControl";
 
 class SideBar extends Component {
   constructor() {
@@ -28,7 +31,7 @@ class SideBar extends Component {
           </button>
         </div>
         <div className="side-bar" style={{ width: isOpen ? "20rem" : 0 }}>
-          {isLoggedIn ? <UserPage /> : <h3>Login/Sign Up</h3>}
+          {isLoggedIn ? <UserPage /> : <h3> <UserControl /> </h3>}
         </div>
       </div>
     );
