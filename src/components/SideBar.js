@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getDataSets } from "../api/dataSet";
 import { exchangeToken, logout } from "../state/auth";
 import UserPage from "./UserPage";
 import Login from "./Login";
@@ -31,7 +30,14 @@ class SideBar extends Component {
           </button>
         </div>
         <div className="side-bar" style={{ width: isOpen ? "20rem" : 0 }}>
-          {isLoggedIn ? <UserPage /> : <h3> <UserControl /> </h3>}
+          {isLoggedIn ? (
+            <UserPage />
+          ) : (
+            <h3>
+              {" "}
+              <UserControl />{" "}
+            </h3>
+          )}
         </div>
       </div>
     );

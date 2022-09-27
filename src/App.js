@@ -24,11 +24,12 @@ function App() {
     }
   };
   useEffect(() => {
-    testSignIn();
+    console.log(auth);
     getRecentDataSet();
   }, [auth]);
   const getRecentDataSet = async () => {
     if (auth.id) {
+      console.log(window.localStorage);
       const response = await apiGetRecentDataSet();
       dispatch(setDataSetAC(response.data.id));
     }

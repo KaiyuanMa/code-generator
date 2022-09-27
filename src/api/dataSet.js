@@ -9,37 +9,67 @@ const token = {
 //GET
 
 const getDataSets = () => {
-  return axios.get("/api/dataSet", token);
+  console.log(token);
+  return axios.get("/api/dataSet", {
+    headers: {
+      authorization: window.localStorage.getItem("token"),
+    },
+  });
 };
 
 const getDataSet = (dataSetId) => {
-  return axios.get(`/api/dataSet/${dataSetId}`, token);
+  return axios.get(`/api/dataSet/${dataSetId}`, {
+    headers: {
+      authorization: window.localStorage.getItem("token"),
+    },
+  });
 };
 
 const apiGetRecentDataSet = () => {
-  return axios.get("/api/dataSet/recent/dataset", token);
+  console.log(token);
+  return axios.get("/api/dataSet/recent/dataset", {
+    headers: {
+      authorization: window.localStorage.getItem("token"),
+    },
+  });
 };
 
 const getDataSetModels = (dataSetId) => {
-  return axios.get(`/api/dataSet/${dataSetId}/model`, token);
+  return axios.get(`/api/dataSet/${dataSetId}/model`, {
+    headers: {
+      authorization: window.localStorage.getItem("token"),
+    },
+  });
 };
 
 //DELETE
 
 const deleteDataSet = (dataSetId) => {
-  return axios.delete(`/api/dataSet/${dataSetId}`, token);
+  return axios.delete(`/api/dataSet/${dataSetId}`, {
+    headers: {
+      authorization: window.localStorage.getItem("token"),
+    },
+  });
 };
 
 //POST
 
 const addDataSet = (dataSet) => {
-  return axios.post("/api/dataSet", dataSet, token);
+  return axios.post("/api/dataSet", dataSet, {
+    headers: {
+      authorization: window.localStorage.getItem("token"),
+    },
+  });
 };
 
 //PUT
 
 const updateDataSet = (dataSetId, params) => {
-  return axios.put(`/api/dataSet/${dataSetId}`, params, token);
+  return axios.put(`/api/dataSet/${dataSetId}`, params, {
+    headers: {
+      authorization: window.localStorage.getItem("token"),
+    },
+  });
 };
 
 export {
