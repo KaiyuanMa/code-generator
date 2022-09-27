@@ -8,38 +8,10 @@ import { getDataSetModels } from '../api/dataSet'
 
 
 const zipFiles = async(models, databaseName) => {
+  console.log('models' , models)
 
   const getName = (model) =>
     models.filter((m) => m.id === model.modelId)[0].name;
-
-  // const getModelRelations = async() => {
-  //   try {
-  //     const datatsetId = models[0].dataSetId
-  
-  //     const [edges, nodes, datasetModels ] = await Promise.all ([
-  //       (await getDataSetEdges(datatsetId)).data,
-  //       (await getDataSetNode(datatsetId)).data,
-  //       (await getDataSetModels(datatsetId)).data
-  //     ])
-  
-  //     const getModelName = (id) => {
-  //       const model = datasetModels.filter( model => model.id === id)[0]
-  //       return model.name
-  //     }
-      
-  //     const getModelId = (id) => {
-  //       const node = nodes.filter( node => id === node.id)[0]
-  //       return getModelName(node.modelId)
-  //     }
-  
-  //     const modelRelations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
-  //     console.log('model relations ', modelRelations)
-  //     return await modelRelations
-  //   }
-  //   catch(err) {
-  //     console.log(err)
-  //   }
-  // }
   
   const getModelRelations = () => {
     return new Promise( async(res)=> {
@@ -60,7 +32,7 @@ const zipFiles = async(models, databaseName) => {
         return getModelName(node.modelId)
       }
   
-      const modelRelations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
+      const modelRelations = edges.map( edge => `\n${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
       console.log('model relations ', modelRelations)
 
       if(modelRelations) return res(modelRelations)
@@ -82,6 +54,8 @@ const zipFiles = async(models, databaseName) => {
     return entries
   }
 
+  const modelRelations = async() => await getModelRelations()
+
   const dbName = databaseName;
   const modelNames = models.map((model) => model.name);
 
@@ -89,27 +63,14 @@ const zipFiles = async(models, databaseName) => {
   const modelImports = modelNames.map(
     (modelName) => `const ${modelName} = require('${modelName}')\n`
   );
-  const modelConnections = models.filter((model) => model.modelId);
-  const printConnections = modelConnections.map(
-    (model) => `\n${model.name}.${model.connectionType}(${getName(model)})`
-  );
   const modelExports = modelNames.map((modelName) => `  ${modelName},\n`);
-  // console.log('loabel realtion ', modelLabelRelations)
-  
-  const modelR = async() => {
-    const result = await getModelRelations()
-    console.log(result)
-    return result
-  }
-  
-  const exportModelR = await modelR()
-  console.log(typeof exportModelR)
+  const exportModelRelations = await modelRelations()
 
   // Blobs
   const indexBlob = new Blob([
     'const conn = require("./conn");\n',
     ...modelImports,
-    ...exportModelR,
+    ...exportModelRelations,
     `\n\nmodule.exports = {\n  conn,\n`,
     ...modelExports,
     `};\n`,
@@ -152,36 +113,17 @@ const zipFiles = async(models, databaseName) => {
 };
 
 export function ZipButton() {
+
   const { dataSet } = useSelector(state => state.dataSet)
   const { models } = useSelector(state => state.models);
   const [ popUp, setPopUp ] = useState(false);
-  const [ dbName, setDbName ] = useState("");
-
-  // const getModelRelations = async() => {
-  //   const edges = (await getDataSetEdges(dataSet.id)).data
-  //   const nodes = (await getDataSetNode(dataSet.id)).data    
-  //   const models = (await getDataSetModels(dataSet.id)).data
-
-  //   const getModelName = (id) => {
-  //     const model = models.filter( model => model.id === id)[0]
-  //     return model.name
-  //   }
-    
-  //   const getModelId = (id) => {
-  //     const node = nodes.filter( node => id === node.id)[0]
-  //     return getModelName(node.modelId)
-  //   }
-
-  //   const modelReplations = edges.map( edge => `${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
-  //   console.log(modelReplations)
-  // }
-  // getModelRelations()
+  const [ dbName, setDbName ] = useState(dataSet.name);
 
   const closePopUp = () => setPopUp(false);
 
   const downloadZip = (ev) => {
     ev.preventDefault();
-    setDbName("");
+    setDbName(dataSet.name);
     return zipFiles(models, dbName);
   };
 
