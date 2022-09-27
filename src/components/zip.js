@@ -88,6 +88,7 @@ export function ZipButton() {
   const [ popUp, setPopUp ] = useState(false);
   const [ dbName, setDbName ] = useState("");
 
+<<<<<<< Updated upstream
   const getModelRelations = async() => {
     const edges = (await getDataSetEdges(dataSet.id)).data
     const nodes = (await getDataSetNode(dataSet.id)).data    
@@ -108,6 +109,8 @@ export function ZipButton() {
   }
   getModelRelations()
 
+=======
+>>>>>>> Stashed changes
   const closePopUp = () => setPopUp(false);
 
   const downloadZip = (ev) => {
