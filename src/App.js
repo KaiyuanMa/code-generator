@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { apiSetAuth } from "./api/auth";
-import { apiGetRecentDataSet } from "./api/dataSet";
 
 import Home from "./components/Home";
 import { setDataSetAC } from "./state/actionCreators/dataSetAC";
