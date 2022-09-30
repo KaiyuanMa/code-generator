@@ -10,7 +10,7 @@ class SideBar extends Component {
   constructor() {
     super();
     this.state = {
-      isOpen: true,
+      isOpen: false,
     };
   }
   async componentDidMount() {

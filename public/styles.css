@@ -50,6 +50,7 @@
   /* right: 0; */
   background-color: #333333;
   overflow-y: scroll;
+  transition: 0.3s;
 }
 
 .side-bar-header-container {
@@ -133,6 +134,7 @@
 .toggle:hover {
   background-color:#894485;
   transition: 0.3s;
+  color: white;
 }
 
 .login-signup-form > p {
@@ -153,7 +155,6 @@
   cursor: pointer;
 }
 
-
 .login-signup-button:hover {
   background-color:#aeae3f;
   transition: 0.3s;
@@ -161,6 +162,11 @@
 
 .github-button {
   width: 80%;
+}
+
+.github-link {
+  color: inherit;
+  text-decoration: none;
 }
 
 .or {

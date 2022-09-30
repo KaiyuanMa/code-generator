@@ -61,7 +61,15 @@ class Signup extends Component {
               <button className='login-signup-button'>Sign Up</button>
            </form>
            <p className='or'><span>or</span></p>
-           <button className='login-signup-button github-button'>Continue with Github</button>
+           <button className='login-signup-button github-button'>
+              <a className='github-link' href='/api/session/github'>
+                <img 
+                  src='https://cdn-icons-png.flaticon.com/512/25/25231.png' 
+                  style={{ height: '1rem', float: 'left', position: 'relative', top: '2px' }} 
+                />
+                Continue with GitHub
+              </a>
+            </button>
           </>
           )
       }
