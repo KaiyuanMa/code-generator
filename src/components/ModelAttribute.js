@@ -150,7 +150,7 @@ function ModelAttribute(prop) {
               </select>
             </form>
             {name == "id" ? (
-              <div>
+              <div className="model-attribute-btn-group">
                 <button
                   onClick={() => {
                     buttonUpdate("autoIncrement");
@@ -167,7 +167,7 @@ function ModelAttribute(prop) {
                 </button>
               </div>
             ) : (
-              <div>
+              <div className="model-attribute-btn-group">
                 <button
                   onClick={() => {
                     buttonUpdate("unique");

@@ -3,7 +3,25 @@
   border: 1px solid #eee;
   padding: 5px;
   border-radius: 5px;
-  background: white;
+  background-color: #252d3d;
+  display: flex;
+}
+
+.model-node * {
+  color: white;
+}
+
+.model-node input {
+  margin: 0;
+  padding: 0;
+  background-color: #2d3749;
+}
+
+.model-node button {
+  color: black;
+}
+
+.model-attribute-btn-group {
   display: flex;
 }
 
@@ -176,7 +194,8 @@
 .model-validation-list-item {
   display: flex;
 }
-label , input{
+label,
+input {
   display: block;
 }
 input {
