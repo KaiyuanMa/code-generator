@@ -25,14 +25,14 @@ const getDataSet = (dataSetId) => {
   });
 };
 
-const apiGetRecentDataSet = () => {
-  console.log(token);
-  return axios.get("/api/dataSet/recent/dataset", {
-    headers: {
-      authorization: window.localStorage.getItem("token"),
-    },
-  });
-};
+// const apiGetRecentDataSet = () => {
+//   console.log(token);
+//   return axios.get("/api/dataSet/recent/dataset", {
+//     headers: {
+//       authorization: window.localStorage.getItem("token"),
+//     },
+//   });
+// };
 
 const getDataSetModels = (dataSetId) => {
   return axios.get(`/api/dataSet/${dataSetId}/model`, {
@@ -75,7 +75,6 @@ const updateDataSet = (dataSetId, params) => {
 export {
   getDataSets,
   getDataSetModels,
-  apiGetRecentDataSet,
   getDataSet,
   addDataSet,
   deleteDataSet,

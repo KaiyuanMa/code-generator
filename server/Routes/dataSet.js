@@ -20,17 +20,17 @@ router.get("/:dataSetId", isLoggedIn, haveAccess, async (req, res, next) => {
   }
 });
 
-router.get("/recent/dataset", isLoggedIn, async (req, res, next) => {
-  try {
-    res.send(
-      await DataSet.findOne({
-        where: { isRecent: true, userId: req.user.id },
-      })
-    );
-  } catch (ex) {
-    next(ex);
-  }
-});
+// router.get("/recent/dataset", isLoggedIn, async (req, res, next) => {
+//   try {
+//     res.send(
+//       await DataSet.findOne({
+//         where: { isRecent: true, userId: req.user.id },
+//       })
+//     );
+//   } catch (ex) {
+//     next(ex);
+//   }
+// });
 
 router.get(
   "/:dataSetId/model",
