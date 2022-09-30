@@ -135,19 +135,21 @@ class UserPage extends Component {
 
     return (
       <>
-        <div className="side-bar-header">
-          <h2>Hello {auth.username}</h2>
-          <button onClick={logout} style={{ height: "1.5rem" }}>
+        <div className="side-bar-header-container">
+          <h2 className='side-bar-header'>Hello {auth.username}</h2>
+          <p className="account">
+            <a onClick={logout}>
             Logout
-          </button>
+            </a>
+          </p>
         </div>
-        <input
+        <input className='side-bar-input'
           placeholder="Search for Dataset"
           onChange={(ev) => this.setState({ term: ev.target.value })}
         />
         <ul>
           <li>
-            <button onClick={createDataSet}>
+            <button className='dataset-button' onClick={createDataSet}>
               <span style={{ fontSize: "2rem" }}>+</span>
             </button>
           </li>
@@ -155,7 +157,7 @@ class UserPage extends Component {
             const { id, name } = dataSet;
             return (
               <li key={id}>
-                <button onClick={() => setDataSet(id)}>
+                <button className='dataset-button' onClick={() => setDataSet(id)}>
                   <span>{name}</span>
                 </button>
               </li>

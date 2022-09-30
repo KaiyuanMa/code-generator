@@ -27,6 +27,9 @@ const User = conn.define("user", {
       isEmail: true,
     },
   },
+  githubId: {
+    type: Sequelize.INTEGER
+  } 
 });
 
 User.addHook("beforeSave", async (user) => {
