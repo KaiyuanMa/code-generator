@@ -7,7 +7,25 @@
   border: 1px solid #eee;
   padding: 5px;
   border-radius: 5px;
-  background: white;
+  background-color: #252d3d;
+  display: flex;
+}
+
+.model-node * {
+  color: white;
+}
+
+.model-node input {
+  margin: 0;
+  padding: 0;
+  background-color: #2d3749;
+}
+
+.model-node button {
+  color: black;
+}
+
+.model-attribute-btn-group {
   display: flex;
 }
 
@@ -298,15 +316,3 @@
 .model-validation-list-item {
   display: flex;
 }
-/* label , input{
-  display: block;
-}
-input {
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-} */
