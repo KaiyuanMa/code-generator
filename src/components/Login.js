@@ -35,23 +35,37 @@ class Login extends Component {
     const { username, password } = this.state;
 
     return (
-      <form className="login" onSubmit={onSubmit}>
-        <h3>Login</h3>
-        <input
-          name="username"
-          onChange={onChange}
-          value={username}
-          placeholder="Enter Username"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={onChange}
-          value={password}
-          placeholder="Enter Password"
-        />
-        <button>Login</button>
+      <>
+      <div className="side-bar-header-container">
+          <h2 className='side-bar-header'>Login</h2>
+        </div>
+        <form className="login-signup-form" onSubmit={onSubmit}>
+          <p>Username</p>
+          <input
+            className='side-bar-input'
+            name="username"
+            onChange={onChange}
+            value={username}
+          />
+          <p>Password</p>
+          <input
+            className='side-bar-input'
+            type="password"
+            name="password"
+            onChange={onChange}
+            value={password}
+          />
+          <button className='login-signup-button'>Login</button>
       </form>
+      <p className='or'><span>or</span></p>
+      <button className='login-signup-button github-button'>
+        <img 
+          src='https://cdn-icons-png.flaticon.com/512/25/25231.png' 
+          style={{ height: '1rem', float: 'left', position: 'relative', top: '2px' }} 
+        />
+        Continue with Github
+      </button>
+      </>
     );
   }
 }

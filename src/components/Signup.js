@@ -30,34 +30,39 @@ class Signup extends Component {
       const { username, password, email, is } = this.state;
           
       return(
-            <div>
-           <h1>Signup</h1>
-           <form className='signup'onSubmit={onSubmit}>
+          <>
+            <div className="side-bar-header-container">
+              <h2 className='side-bar-header'>Sign Up</h2>
+            </div>
+           <form className='login-signup-form' onSubmit={onSubmit}>
+              <p>Username</p>
                <input
-               name="username"
+                className='side-bar-input'
+                name="username"
                 onChange={onChange}
                 value={username}
-                placeholder="Enter Username"
                />
-               
-               <input
-               type='password'
-                name="password"
-                onChange={onChange}
-                value={password}
-                placeholder="Enter Password"
-              />
+              <p>Email</p>
               <input
-               type='email'
+                className='side-bar-input'
+                type='email'
                 name="email"
                 onChange={onChange}
                 value={email}
-                placeholder="Enter Email"
               />
-              <button>signup</button>
+               <p>Password</p>
+               <input
+                className='side-bar-input'
+                type='password'
+                name="password"
+                onChange={onChange}
+                value={password}
+              />
+              <button className='login-signup-button'>Sign Up</button>
            </form>
-        
-           </div>
+           <p className='or'><span>or</span></p>
+           <button className='login-signup-button github-button'>Continue with Github</button>
+          </>
           )
       }
     }

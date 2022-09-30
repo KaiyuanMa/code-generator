@@ -26,17 +26,21 @@ class SideBar extends Component {
             onClick={() => this.setState({ isOpen: !isOpen })}
             className="toggle"
           >
-            toggle
+            {
+              isOpen ?
+              '>' :
+              '<'
+            }
           </button>
         </div>
         <div className="side-bar" style={{ width: isOpen ? "20rem" : 0 }}>
           {isLoggedIn ? (
             <UserPage />
           ) : (
-            <h3>
+            <div>
               {" "}
               <UserControl />{" "}
-            </h3>
+            </div>
           )}
         </div>
       </div>
