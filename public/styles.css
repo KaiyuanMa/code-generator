@@ -1,3 +1,7 @@
+* {
+  font-family: 'Rajdhani', sans-serif;
+}
+
 .model-node {
   height: fit-content;
   border: 1px solid #eee;
@@ -45,6 +49,8 @@
   z-index: 4;
 }
 
+/* sidebar */
+
 .side-bar-container {
   position: fixed;
   right: 0;
@@ -55,26 +61,38 @@
 }
 
 .side-bar {
+  padding: 0 10%;
   height: 100vh;
   /* width: 50rem; */
   /* position: fixed; */
   /* right: 0; */
-  background-color: #e9effb;
+  background-color: #333333;
   overflow-y: scroll;
+  transition: 0.3s;
 }
 
-.side-bar-header {
-  padding: 0 10%;
+.side-bar-header-container {
+  /* padding: 0 10%; */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.side-bar > input {
+.side-bar-header {
+  color: #c38a73;
+}
+
+.side-bar-input {
   display: block;
   margin: auto;
   width: 70%;
   max-width: 250px;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.side-bar-input:focus {
+  outline: none;
 }
 
 .side-bar > ul {
@@ -83,15 +101,28 @@
   list-style-type: none;
 }
 
-.side-bar > ul > li > button {
+.dataset-button {
   margin: 0 auto 20px;
   height: 130px;
   width: 130px;
   border-radius: 10%;
-  background-color: white;
+  background-color: #dcdca9;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition-duration: 0.3s;
+}
+
+.dataset-button:hover, .dataset-button:focus, .dataset-button:active {
+  background-color:#aeae3f;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
 }
 
 .button-wrapper {
@@ -105,10 +136,101 @@
 
 .toggle {
   position: absolute;
-  right: -15px;
-  height: 1.5rem;
-  transform: rotate(-90deg);
+  right: 0px;
+  height: 4rem;
+  /* transform: rotate(-90deg); */
   z-index: 99;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-stretch: expanded;
+  background-color: #bb80b7;
+  color: #cccccc;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  background-color:#894485;
+  transition: 0.3s;
+  color: white;
+}
+
+.login-signup-form > p {
+  color: #bb80b7;
+  margin: 1.5em 0 0.5em;
+}
+
+.login-signup-button {
+  background-color: #dcdca9;
+  display: block;
+  margin: 2.5rem auto;
+  width: 50%;
+  max-width: 200px;
+  padding: 10px;
+  border: 0;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-signup-button:hover {
+  background-color:#aeae3f;
+  transition: 0.3s;
+}
+
+.github-button {
+  width: 80%;
+}
+
+.github-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.or {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap; 
+}
+
+.or > span {
+  position: relative;
+  display: inline-block;
+  color: white;
+}
+
+.or > span:before,
+.or > span:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 9999px;
+  height: 1px;
+  background: white;
+}
+
+.or > span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.or > span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+
+.account {
+  color: white;
+  text-align: center;
+}
+
+.account > a {
+  color: #4cc5ae;
+}
+
+.account > a:hover {
+  cursor: pointer;
 }
 
 /* ModelEdge */
@@ -193,17 +315,4 @@
 /* ModelValidation */
 .model-validation-list-item {
   display: flex;
-}
-label,
-input {
-  display: block;
-}
-input {
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
 }

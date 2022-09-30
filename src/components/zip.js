@@ -8,11 +8,6 @@ import { getDataSetModels } from '../api/dataSet'
 
 
 const zipFiles = async(models, databaseName) => {
-  console.log('models' , models)
-
-  const getName = (model) =>
-    models.filter((m) => m.id === model.modelId)[0].name;
-  
   const getModelRelations = () => {
     return new Promise( async(res)=> {
       const datatsetId = models[0].dataSetId
@@ -21,7 +16,7 @@ const zipFiles = async(models, databaseName) => {
         (await getDataSetNode(datatsetId)).data,
         (await getDataSetModels(datatsetId)).data
       ])
-  
+
       const getModelName = (id) => {
         const model = datasetModels.filter( model => model.id === id)[0]
         return model.name
@@ -31,27 +26,24 @@ const zipFiles = async(models, databaseName) => {
         const node = nodes.filter( node => id === node.id)[0]
         return getModelName(node.modelId)
       }
-  
+
       const modelRelations = edges.map( edge => `\n${getModelId(edge.source)}.${edge.label}(${getModelId(edge.target)})` )
-      console.log('model relations ', modelRelations)
 
       if(modelRelations) return res(modelRelations)
 
-    }).then((modelRelations)=> {
-      console.log('promise success return modelrelations', modelRelations)
-      return modelRelations
-    })
+    }).then((modelRelations)=> modelRelations )
   }
 
   const printModelEntries = model => {
-    const defaultEntries = ['id', 'modelId', 'createdAt', 'updatedAt', 'validations']
-    const entries = model.entries.map(entry => {
-      const toup = Object.entries(entry)
-      const filterEntries = toup.filter( key_val => key_val[1] && !defaultEntries.includes(key_val[0]))
-      const printableEntries = filterEntries.map( e => `\n  ${e[0]}: ${e[1]}`)
-      return printableEntries
-    })
-    return entries
+    return model.entries.map( entry =>  `\n  ${entry.name}: {\n    type: ${entry.type},\n    primarykey: ${entry.primaryKey},\n    unique: ${entry.unique},\n    allowNull: ${entry.allowNull},\n    autoIncrement: ${entry.autoIncrement},\n${getEntryValidation(entry.validations)}  },` )
+  }
+
+  const getEntryValidation = (validations) => {
+    if(validations.length > 0){
+      const validatationFormatted = validations.map( validation => `\n      ${validation.name}: ${validation.parameter}` )
+      return `    validate: {${validatationFormatted}\n    }\n`
+    }
+    else return ''
   }
 
   const modelRelations = async() => await getModelRelations()
@@ -117,7 +109,10 @@ export function ZipButton() {
   const { dataSet } = useSelector(state => state.dataSet)
   const { models } = useSelector(state => state.models);
   const [ popUp, setPopUp ] = useState(false);
-  const [ dbName, setDbName ] = useState(dataSet.name);
+  // This line will set the Database name when the user click on export,
+  // but it is currently getting an erorr because the redux store
+  // const [ dbName, setDbName ] = useState(dataSet.name); 
+  const [ dbName, setDbName ] = useState('name_your_database'); 
 
   const closePopUp = () => setPopUp(false);
 

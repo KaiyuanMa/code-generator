@@ -1,3 +1,11 @@
+try {
+  require('../.env');
+}
+catch(ex) {
+  console.log('running locally? create .env file');
+  console.log('deployed? set environment variables?');
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
