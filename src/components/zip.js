@@ -136,9 +136,10 @@ export function ZipButton() {
         <div
           style={{
             position: "fixed",
+            top: 0,
             backgroundColor: "rgb(0,0,0, .5)",
             zIndex: "500",
-            height: "70vh",
+            height: "100vh",
             width: "100%",
             display: "flex",
             justifyContent: "center",
@@ -149,25 +150,28 @@ export function ZipButton() {
             action=""
             style={{
               postition: "relative",
-              backgroundColor: "#bccdfb",
+              backgroundColor: "#333333",
               display: "flex",
               flexDirection: "column",
-              height: "50%",
-              width: "50%",
+              height: "15%",
+              width: "30%",
               textAlign: "center",
               padding: "1rem",
+              justifyContent: "space-around",
+              alignItems: 'center'
             }}
           >
-            <button onClick={closePopUp} style={{ alignSelf: "flex-end" }}>
-              X
-            </button>
-            <label htmlFor="">Name of your Database</label>
+            <label htmlFor="" style={{ color: 'white' }}>Name of your Database</label>
             <input
               type="text"
               value={dbName}
               onChange={(ev) => setDbName(ev.target.value)}
+              style={{ width: '70%', fontSize: '1rem' }}
             />
-            <button onClick={downloadZip}>DOWNLOAD</button>
+            <div>
+              <button className='popup-button' onClick={closePopUp} style={{ marginRight: '1rem'}}>Cancel</button>
+              <button className='popup-button' onClick={downloadZip} style={{ marginLeft: '1rem'}}>Download</button>
+            </div>
           </form>
         </div>
       )}
