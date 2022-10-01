@@ -10,6 +10,8 @@ import {
 import { apiDeleteModel } from "../api/model";
 import { apiDeleteNode } from "../api/node";
 
+import {AiOutlineClose} from 'react-icons/ai'
+
 function ModelNode(props) {
   const dispatch = useDispatch();
   const { models } = useSelector((state) => state.models);
@@ -62,7 +64,8 @@ function ModelNode(props) {
     updateModelName();
   };
 
-  const handelDelete = () => {
+  const handelDelete = (ev) => {
+    ev.preventDefault()
     const deleteNodeAndModel = async (data) => {
       await apiDeleteNode(data.modelId);
       dispatch(deleteModelAC(data.modelId));
@@ -75,14 +78,12 @@ function ModelNode(props) {
     <div className="model-node">
       <Handle type="target" position={Position.Top} />
       <div>
-        <div className="model-node-header">
-          <button onClick={handelDelete}>x</button>
-        </div>
         <form
           className="model-name-form"
           id={`${modelId}-form`}
           onSubmit={handelSubmit}
         >
+        <div className="model-node-header" style={{height:'3rem', display:'flex', alignItems:'center', color:'black', width:'100%', justifyContent:'space-between'}}> 
           <input
             type="text"
             className="model-name-input"
@@ -91,7 +92,10 @@ function ModelNode(props) {
             value={modelName}
             disabled={true}
             onChange={(ev) => setModelName(ev.target.value)}
+            style={{fontSize:'2rem', background: 'rgba(0,0,0,0)', color:'black', textAlign:'center', border:'none'}}
           />
+          <AiOutlineClose onClick={handelDelete} style={{backgroundColor:'black', color:'black', padding:'1rem', alignSelf:'flex-end'}}/>
+        </div>
         </form>
         {model.entries
           ? model.entries.map((entry) => (

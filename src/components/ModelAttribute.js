@@ -6,6 +6,8 @@ import {
   addValidationAC,
 } from "../state/actionCreators/modelsAC";
 import ModelValidation from "./ModelValidation";
+import { MdOpenInFull } from 'react-icons/md'
+import {AiOutlineClose} from 'react-icons/ai'
 
 function ModelAttribute(prop) {
   const { models } = useSelector((state) => state.models);
@@ -152,6 +154,7 @@ function ModelAttribute(prop) {
             {name == "id" ? (
               <div className="model-attribute-btn-group">
                 <button
+                  style={{border:'none', backgroundColor:'rgb(0, 0, 0, 0)', color:'red'}}
                   onClick={() => {
                     buttonUpdate("autoIncrement");
                   }}
@@ -159,6 +162,7 @@ function ModelAttribute(prop) {
                   autoIncrement
                 </button>
                 <button
+                  style={{border:'none', backgroundColor:'rgb(0, 0, 0, 0)', color:'green'}}
                   onClick={() => {
                     buttonUpdate("primaryKey");
                   }}
@@ -169,6 +173,7 @@ function ModelAttribute(prop) {
             ) : (
               <div className="model-attribute-btn-group">
                 <button
+                  style={{border:'none', backgroundColor:'rgb(0, 0, 0, 0)', color:'red'}}
                   onClick={() => {
                     buttonUpdate("unique");
                   }}
@@ -176,6 +181,7 @@ function ModelAttribute(prop) {
                   unique
                 </button>
                 <button
+                  style={{border:'none', backgroundColor:'rgb(0, 0, 0, 0)', color:'green'}}
                   onClick={() => {
                     buttonUpdate("allowNull");
                   }}
@@ -184,20 +190,16 @@ function ModelAttribute(prop) {
                 </button>
               </div>
             )}
-            <button
-              onClick={() => dispatch(deleteModelEntry(modelId, entryId))}
-            >
-              X
-            </button>
+              <AiOutlineClose
+                onClick={() => dispatch(deleteModelEntry(modelId, entryId))}
+              />
           </div>
         </div>
-        <button
+        <MdOpenInFull 
           className="model-attribute-expand-btn"
           id={`${entryId}-btn`}
           onClick={showEntryContent}
-        >
-          open
-        </button>
+        />
       </div>
       <div className="model-attribute-content" id={`${entryId}-content`}>
         {entry.validations
