@@ -79,6 +79,18 @@ body {
   transition: 0.3s;
 }
 
+.popup-button {
+  background-color: #dcdca9;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.popup-button:hover {
+  background-color:#aeae3f;
+  transition: 0.3s;
+}
+
 .home {
   width: 100vw;
   height: 100vh;
@@ -114,6 +126,7 @@ body {
 .side-bar-container {
   position: fixed;
   right: 0;
+  top: 0;
   display: flex;
   width: fit-content;
   height: 100%;

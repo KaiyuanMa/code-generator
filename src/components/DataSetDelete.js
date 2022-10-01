@@ -24,6 +24,7 @@ class DeleteButton extends Component {
           style={{
             position: "fixed",
             backgroundColor: "rgb(0,0,0, .5)",
+            top: 0,
             zIndex: "500",
             height: "100vh",
             width: "100%",
@@ -36,18 +37,21 @@ class DeleteButton extends Component {
             action=""
             style={{
               postition: "relative",
-              backgroundColor: "#bccdfb",
+              backgroundColor: "#333333",
               display: "flex",
               flexDirection: "column",
               height: "15%",
               width: "30%",
               textAlign: "center",
               padding: "1rem",
+              justifyContent: "space-around"
             }}
           >
-            <p>Are you sure you want to delete { dataSet.name }?</p>
-            <button onClick={ () => this.setState({ popUp: !popUp }) }>Cancel</button>
-            <button onClick={ () => deleteDataSet(dataSet.id) }>Delete</button>
+            <p style={{ color: 'white' }}>Are you sure you want to delete { dataSet.name }?</p>
+            <div>
+              <button className='popup-button' onClick={ () => this.setState({ popUp: !popUp }) } style={{ marginRight: '1rem'}}>Cancel</button>
+              <button className='popup-button' onClick={ () => deleteDataSet(dataSet.id) } style={{ marginLeft: '1rem'}}>Delete</button>
+            </div>
           </div>
         </div>
       )}
