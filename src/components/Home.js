@@ -7,6 +7,7 @@ import SideBar from "./SideBar";
 function Home() {
   return (
     <div className="home">
+      <img src="../public/images/RDBG logo.png" className='logo' />
       <SideBar />
       <ReactFlowProvider>
         <Flow />
