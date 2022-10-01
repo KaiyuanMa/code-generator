@@ -19,16 +19,27 @@ function ModelValidation(prop) {
     _setParam(data);
   };
 
-  const inputHelper = () => {
-    const validationForm = document.getElementById(`${validation.id}-form`);
-    const validationInput = document.getElementById(`${validation.id}-input`);
+  const [name, _setName] = useState(validation.name);
+  const nameRef = useRef(param);
+  const setName = (data) => {
+    nameRef.current = data;
+    _setName(data);
+  };
+
+  const inputHelper = (param) => {
+    const validationForm = document.getElementById(
+      `${validation.id}-${param}-form`
+    );
+    const validationInput = document.getElementById(
+      `${validation.id}-${param}`
+    );
     validationForm?.addEventListener("dblclick", function () {
       validationInput.disabled = false;
       validationInput.focus();
     });
     validationInput?.addEventListener("blur", function () {
       validationInput.disabled = true;
-      updateValidationParams();
+      updateValidationParams(param);
     });
     validationInput?.addEventListener("keydown", (event) => {
       if (event.isComposing || event.keyCode === 13) {
@@ -37,27 +48,37 @@ function ModelValidation(prop) {
     });
   };
 
-  const updateValidationParams = async () => {
-    dispatch(
-      updateValidation(modelId, entryId, validation.id, {
-        parameter: paramRef.current,
-      })
-    );
-  };
-
-  const handelSubmit = (e) => {
-    e.preventDefault();
-    updateValidationParams();
+  const updateValidationParams = async (param) => {
+    if (param == "input")
+      dispatch(
+        updateValidation(modelId, entryId, validation.id, {
+          parameter: paramRef.current,
+        })
+      );
+    else if (param == "name")
+      dispatch(
+        updateValidation(modelId, entryId, validation.id, {
+          name: nameRef.current,
+        })
+      );
   };
 
   useEffect(() => {
-    inputHelper();
+    inputHelper("name");
+    inputHelper("input");
   }, []);
 
   return (
     <div className="model-validation-list-item">
-      <div>{`${validation.name}: `}</div>
-      <form id={`${validation.id}-form`} onSubmit={handelSubmit}>
+      <form id={`${validation.id}-name-form`}>
+        <input
+          value={name}
+          id={`${validation.id}-name`}
+          onChange={(e) => setName(e.target.value)}
+          disabled={true}
+        />
+      </form>
+      <form id={`${validation.id}-input-form`}>
         <input
           value={param}
           id={`${validation.id}-input`}
