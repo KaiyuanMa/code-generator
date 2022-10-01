@@ -11,6 +11,7 @@ import { apiDeleteModel } from "../api/model";
 import { apiDeleteNode } from "../api/node";
 
 import {AiOutlineClose} from 'react-icons/ai'
+import {GrAdd} from 'react-icons/gr'
 
 function ModelNode(props) {
   const dispatch = useDispatch();
@@ -102,13 +103,11 @@ function ModelNode(props) {
               <ModelAttribute entry={entry} key={entry.id} />
             ))
           : null}
-        <button
-          onClick={() => {
-            handelClick();
-          }}
-        >
-          +
-        </button>
+          <GrAdd 
+            onClick={() => {
+              handelClick();
+            }}
+          />
       </div>
       <Handle type="source" position={Position.Bottom} />
     </div>

@@ -7,7 +7,8 @@ import {
 } from "../state/actionCreators/modelsAC";
 import ModelValidation from "./ModelValidation";
 import { MdOpenInFull } from 'react-icons/md'
-import {AiOutlineClose} from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
+import { BiAddToQueue } from 'react-icons/bi'
 
 function ModelAttribute(prop) {
   const { models } = useSelector((state) => state.models);
@@ -211,13 +212,15 @@ function ModelAttribute(prop) {
               />
             ))
           : null}
-        <button
-          onClick={() => {
-            AddValidation();
-          }}
-        >
-          +
-        </button>
+          <div
+            style={{dislay:'flex', justifyContent:'center', alignItems:'center'}}
+            onClick={() => {
+              AddValidation();
+            }}
+          >
+            <BiAddToQueue />
+            Add Validation
+          </div>
       </div>
     </div>
   );

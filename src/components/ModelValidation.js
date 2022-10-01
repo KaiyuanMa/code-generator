@@ -5,6 +5,8 @@ import {
   updateValidation,
 } from "../state/actionCreators/modelsAC";
 
+import { AiOutlineClose } from 'react-icons/ai'
+
 function ModelValidation(prop) {
   const dispatch = useDispatch();
   const validation = prop.validation;
@@ -63,13 +65,11 @@ function ModelValidation(prop) {
           disabled={true}
         />
       </form>
-      <button
+      <AiOutlineClose 
         onClick={() =>
           dispatch(deleteValidation(modelId, entryId, validation.id))
         }
-      >
-        X
-      </button>
+      />
     </div>
   );
 }
