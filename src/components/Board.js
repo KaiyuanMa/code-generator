@@ -28,6 +28,7 @@ import { apiAddEdge, apiDeleteEdgeByNode } from "../api/edge";
 
 import ModelNode from "./ModelNode";
 import ModelEdge from "./ModelEdge";
+import { nodes as initialNodes, edges as initialEdges } from './initial-elements';
 
 const rfStyle = {
   backgroundColor: "#2e3a43",
@@ -39,8 +40,8 @@ const edgeTypes = { modelEdge: ModelEdge };
 function Flow() {
   const { dataSet } = useSelector((state) => state.dataSet);
   const { models } = useSelector((state) => state.models);
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
   const [newX, setNewX] = useState(200);
   const [newY, setNewY] = useState(200);
   const defaultEdgeOptions = { animated: true };
@@ -214,7 +215,7 @@ function Flow() {
         style={rfStyle}
         defaultEdgeOptions={defaultEdgeOptions}
       >
-        <MiniMap />
+      
         <Controls />
         <Background variant="dots" gap={20} />
         <div className="model_controls">
