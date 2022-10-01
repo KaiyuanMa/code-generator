@@ -18,7 +18,7 @@ class DeleteButton extends Component {
 
     return (
       <>
-        <button onClick={() => this.setState({ popUp: !popUp })}>Delete</button>
+        <button onClick={() => this.setState({ popUp: !popUp })} className='delete-button'>Delete</button>
         { popUp && (
         <div
           style={{

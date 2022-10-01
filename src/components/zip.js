@@ -128,6 +128,7 @@ export function ZipButton() {
         onClick={() => {
           setPopUp((prev) => !prev);
         }}
+        className='export-button'
       >
         Export
       </button>
