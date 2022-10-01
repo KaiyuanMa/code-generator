@@ -351,3 +351,12 @@ body {
 .model-validation-list-item {
   display: flex;
 }
+
+.react-flow__minimap {
+  left: 3rem;
+  top: 3rem;
+}
+
+.react-flow__controls {
+  top: 3rem;
+}
