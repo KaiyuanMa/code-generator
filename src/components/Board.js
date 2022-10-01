@@ -30,7 +30,7 @@ import ModelNode from "./ModelNode";
 import ModelEdge from "./ModelEdge";
 
 const rfStyle = {
-  backgroundColor: "#B8CEFF",
+  backgroundColor: "#2e3a43",
 };
 
 const nodeTypes = { model: ModelNode };
