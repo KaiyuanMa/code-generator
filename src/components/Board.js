@@ -159,22 +159,23 @@ function Flow() {
       }
     }
   }, []);
-  const onConnect = useCallback(
-    (connection) => {
-      connection.type = "modelEdge";
-      connection.markerEnd = {
-        type: MarkerType.ArrowClosed,
-      };
-      setEdges((eds) => addEdge(connection, eds));
-      const addEdgeHelper = async () => {
-        connection.dataSetId = DataSetId;
-        connection.label = "test";
-        await apiAddEdge(connection);
-      };
-      addEdgeHelper();
-    },
-    [setEdges]
-  );
+
+  const onConnect = (connection) => {
+    connection.type = "modelEdge";
+    connection.markerEnd = {
+      type: MarkerType.ArrowClosed,
+    };
+    setEdges((eds) => addEdge(connection, eds));
+    const addEdgeHelper = async () => {
+      connection.dataSetId = dataSet.id;
+      connection.label = "test";
+      console.log(connection);
+      delete connection.markerEnd;
+      console.log(connection);
+      await apiAddEdge(connection);
+    };
+    addEdgeHelper();
+  };
 
   //
   const onNodesDelete = (nodes) => {
