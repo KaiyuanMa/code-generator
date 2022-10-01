@@ -44,6 +44,8 @@ body {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition-duration: 0.3s;
+  position: fixed;
+  right: 3%;
 }
 
 .add_model:hover {
@@ -51,6 +53,30 @@ body {
   transition: 0.3s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   transform: scale(1.05);
+}
+
+.export-button, .delete-button {
+  color: #335d53;
+  background-color: #cccccc;
+  border: none;
+  position: fixed;
+  top: 1.95rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.export-button {
+  right: 15%;
+}
+
+.delete-button {
+  right: 9%;
+}
+
+.export-button:hover, .delete-button:hover {
+  color: #6dc9b4;
+  background-color: #605f5f;
+  transition: 0.3s;
 }
 
 .home {
@@ -352,11 +378,11 @@ body {
   display: flex;
 }
 
-.react-flow__minimap {
+/* .react-flow__minimap {
   left: 3rem;
   top: 3rem;
 }
 
 .react-flow__controls {
   top: 3rem;
-}
+} */
